@@ -1,0 +1,12 @@
+.gradle
+.idea/
+PlanterHelper.iml
+PlanterHelper.ipr
+PlanterHelper.iws
+build/
+gradle/
+gradlew
+idea-files/
+misc-files/
+
+
