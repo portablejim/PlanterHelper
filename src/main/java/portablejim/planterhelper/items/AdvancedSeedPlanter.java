@@ -1,6 +1,7 @@
 package portablejim.planterhelper.items;
 
 import cpw.mods.fml.common.FMLLog;
+import cpw.mods.fml.common.network.FMLNetworkHandler;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -38,9 +39,9 @@ public class AdvancedSeedPlanter extends InventoryPlanterHelperTool {
 
         if(par3EntityPlayer.isSneaking()) {
             if(!par2World.isRemote) {
-                inventory.loadFromNBT(par1ItemStack);
+                //inventory.loadFromNBT(par1ItemStack);
+                par3EntityPlayer.openGui(PlanterHelper.instance, 0, par2World, 0, 0, 0);
             }
-            par3EntityPlayer.openGui(PlanterHelper.instance, 0, par2World, 0, 0, 0);
         }
 
         return par1ItemStack;
@@ -53,7 +54,8 @@ public class AdvancedSeedPlanter extends InventoryPlanterHelperTool {
             ForgeDirection[] directions = { ForgeDirection.SOUTH, ForgeDirection.WEST, ForgeDirection.NORTH, ForgeDirection.EAST };
             if(PlantingUtil.canPlant(player.inventory, world, x, y, z, ForgeDirection.getOrientation(intDirection))) {
                 ForgeDirection direction = directions[intFacing];
-                PlantingLogic.plantSquare(player.inventory, world, x, y, z, 9, direction, PlantingUtil.getTargetSlot(player.inventory));
+                PlantingLogic.plantSquare(inventory, world, x, y, z, 9, direction, PlantingUtil.getTargetSlot(player.inventory));
+                inventory.saveToNBT(player.inventory.getStackInSlot(PlantingUtil.getTargetSlot(player.inventory)));
             }
 
             return true;

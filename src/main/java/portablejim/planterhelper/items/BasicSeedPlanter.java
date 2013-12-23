@@ -37,7 +37,7 @@ public class BasicSeedPlanter extends Item {
         ForgeDirection[] directions = { ForgeDirection.SOUTH, ForgeDirection.WEST, ForgeDirection.NORTH, ForgeDirection.EAST };
         if(PlantingUtil.canPlant(player.inventory, world, x, y, z, ForgeDirection.getOrientation(intDirection))) {
             ForgeDirection direction = directions[intFacing];
-            PlantingLogic.plantSquare(player.inventory, world, x, y, z, 9, direction, PlantingUtil.getTargetSlot(player.inventory));
+            PlantingLogic.plantSquare(player.inventory, world, x, y, z, 3, direction, PlantingUtil.getTargetSlot(player.inventory));
         }
 
         return true;
