@@ -1,6 +1,5 @@
 package portablejim.planterhelper.inventories;
 
-import cpw.mods.fml.common.FMLLog;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -16,7 +15,7 @@ import net.minecraftforge.common.IPlantable;
  * To change this template use File | Settings | File Templates.
  */
 public class SmallInventory implements IInventory {
-    private ItemStack[] items = new ItemStack[27];
+    private ItemStack[] inventoryItems = new ItemStack[27];
     @Override
     public int getSizeInventory() {
         return 27;
@@ -28,37 +27,37 @@ public class SmallInventory implements IInventory {
             throw new IndexOutOfBoundsException();
         }
 
-        return items[i];
+        return inventoryItems[i] == null ? null : inventoryItems[i].copy();
     }
 
     @Override
     public ItemStack decrStackSize(int index, int amount) {
-        if(items[index] == null) {
+        if(inventoryItems[index] == null) {
             return null;
         }
 
         ItemStack output;
-        if(items[index].stackSize <= amount) {
-            output = items[index];
-            items[index] = null;
+        if(inventoryItems[index].stackSize <= amount) {
+            output = inventoryItems[index];
+            inventoryItems[index] = null;
         }
         else {
-            output = items[index].splitStack(amount);
+            output = inventoryItems[index].splitStack(amount);
 
-            if(items[index].stackSize ==0) {
-                items[index] = null;
+            if(inventoryItems[index].stackSize ==0) {
+                inventoryItems[index] = null;
             }
         }
         onInventoryChanged();
 
-        return output;
+        return output == null ? null : output.copy();
     }
 
     @Override
     public ItemStack getStackInSlotOnClosing(int slotNum) {
-        if(items[slotNum] != null) {
-            ItemStack stack = items[slotNum];
-            items[slotNum] = null;
+        if(inventoryItems[slotNum] != null) {
+            ItemStack stack = inventoryItems[slotNum];
+            inventoryItems[slotNum] = null;
             return stack;
         }
         else {
@@ -68,12 +67,12 @@ public class SmallInventory implements IInventory {
 
     @Override
     public void setInventorySlotContents(int num, ItemStack itemStack) {
-        items[num] = itemStack;
+        inventoryItems[num] = itemStack;
 
         if(itemStack != null && itemStack.stackSize > getInventoryStackLimit()) {
             itemStack.stackSize = getInventoryStackLimit();
         }
-        onInventoryChanged();
+        //onInventoryChanged();
     }
 
     @Override
@@ -94,6 +93,8 @@ public class SmallInventory implements IInventory {
     @Override
     public void onInventoryChanged() {
         // Not updating NBT until close of inventory.
+        // NOOP
+        assert Boolean.TRUE;
     }
 
     @Override
@@ -137,7 +138,7 @@ public class SmallInventory implements IInventory {
         NBTTagList list = new NBTTagList();
 
         for(int i = 0; i < getSizeInventory(); i++) {
-            ItemStack stack = items[i];
+            ItemStack stack = inventoryItems[i];
             if(stack != null) {
                 NBTTagCompound itemTag = new NBTTagCompound();
 
@@ -154,7 +155,7 @@ public class SmallInventory implements IInventory {
 
     public void clearInventory() {
         for(int i = 0; i < getSizeInventory(); i++) {
-            items[i] = null;
+            inventoryItems[i] = null;
         }
     }
 }

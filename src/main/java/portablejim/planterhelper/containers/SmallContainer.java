@@ -11,6 +11,8 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
+import portablejim.planterhelper.gui.util.DisabledSlot;
+import portablejim.planterhelper.gui.util.SeedSlot;
 import portablejim.planterhelper.inventories.SmallInventory;
 
 /**
@@ -20,12 +22,40 @@ import portablejim.planterhelper.inventories.SmallInventory;
  * Time: 12:41 PM
  * To change this template use File | Settings | File Templates.
  */
-public class SmallContainer extends ContainerChest {
+public class SmallContainer extends Container {
     private SmallInventory inv;
+    private int rows;
 
     public SmallContainer(InventoryPlayer player, SmallInventory inventory) {
-        super(player, inventory);
         this.inv = inventory;
+        rows = this.inv.getSizeInventory() / 9;
+
+        int invHeightPx = (this.rows - 4) * 18;
+
+        int invRow;
+        int invColumn;
+
+        for(invRow = 0; invRow < this.rows; invRow++) {
+            for(invColumn = 0; invColumn < 9; invColumn++) {
+                this.addSlotToContainer(new SeedSlot(inventory, invColumn + invRow * 9, 8 + invColumn * 18, 18 + invRow * 18));
+            }
+        }
+
+        for(invRow = 0; invRow < 3; invRow++) {
+            for(invColumn = 0; invColumn < 9; invColumn++) {
+                this.addSlotToContainer(new Slot(player, invColumn + invRow * 9 + 9, 8 + invColumn * 18, 103 + invRow * 18 + invHeightPx));
+            }
+        }
+
+        for(invColumn = 0; invColumn < 9; invColumn++) {
+            if(invColumn == player.currentItem) {
+                this.addSlotToContainer(new DisabledSlot(player, invColumn, 8 + invColumn * 18, 161 + invHeightPx));
+            }
+            else {
+                this.addSlotToContainer(new Slot(player, invColumn, 8 + invColumn * 18, 161 + invHeightPx));
+            }
+        }
+
     }
 
     @Override
@@ -37,6 +67,19 @@ public class SmallContainer extends ContainerChest {
     @Override
     public boolean canInteractWith(EntityPlayer entityPlayer) {
         return inv.isUseableByPlayer(entityPlayer);
+    }
+
+    @Override
+    public ItemStack slotClick(int paramInt1, int paramInt2, int paramInt3, EntityPlayer paramEntityPlayer) {
+        FMLLog.getLogger().info(String.format("CLICK: %d %d %d", paramInt1, paramInt2, paramInt3));
+        /*if(paramInt1 > 0 && paramInt1 < this.inv.getSizeInventory()) {
+            return null;
+        }
+        else {
+            return super.slotClick(paramInt1, paramInt2, paramInt3, paramEntityPlayer);
+        }
+        //return null; //super.slotClick(paramInt1, paramInt2, paramInt3, paramEntityPlayer);*/
+        return super.slotClick(paramInt1, paramInt2, paramInt3, paramEntityPlayer);
     }
 
     @Override
