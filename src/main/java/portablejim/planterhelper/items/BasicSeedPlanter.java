@@ -42,4 +42,9 @@ public class BasicSeedPlanter extends Item {
 
         return true;
     }
+
+    @Override
+    public int getMaxItemUseDuration(ItemStack itemstack) {
+        return 1;
+    }
 }

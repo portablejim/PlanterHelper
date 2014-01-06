@@ -37,7 +37,7 @@ public class SmallGuiHandler implements IGuiHandler {
         switch (i) {
             case 0:
                 if(currentItem instanceof AdvancedSeedPlanter) {
-                    return new SmallContainer(entityPlayer.inventory, ((AdvancedSeedPlanter)currentItem).getInventory());
+                    return new SmallContainer(entityPlayer.inventory, new SmallInventory(entityPlayer.getHeldItem()));
                 }
             default:
                 return null;
@@ -58,7 +58,7 @@ public class SmallGuiHandler implements IGuiHandler {
         switch (i) {
             case 0:
                 if(currentItem instanceof AdvancedSeedPlanter) {
-                    return new SeedPlanterGui(entityPlayer.inventory, ((AdvancedSeedPlanter)currentItem).getInventory());
+                    return new SeedPlanterGui(entityPlayer.inventory, new SmallInventory(entityPlayer.getHeldItem()));
                 }
             default:
                 return null;

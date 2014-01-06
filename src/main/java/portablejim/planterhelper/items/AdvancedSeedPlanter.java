@@ -23,15 +23,11 @@ import portablejim.planterhelper.items.lib.InventoryPlanterHelperTool;
  * To change this template use File | Settings | File Templates.
  */
 public class AdvancedSeedPlanter extends InventoryPlanterHelperTool {
-    private SmallInventory inventory;
-
     public AdvancedSeedPlanter(int par1) {
         super(par1);
         this.setMaxStackSize(1);
         this.setCreativeTab(CreativeTabs.tabTools);
         this.setUnlocalizedName("advancedSeedPlanter");
-
-        inventory = new SmallInventory();
     }
 
     @Override
@@ -54,8 +50,8 @@ public class AdvancedSeedPlanter extends InventoryPlanterHelperTool {
             ForgeDirection[] directions = { ForgeDirection.SOUTH, ForgeDirection.WEST, ForgeDirection.NORTH, ForgeDirection.EAST };
             if(PlantingUtil.canPlant(player.inventory, world, x, y, z, ForgeDirection.getOrientation(intDirection))) {
                 ForgeDirection direction = directions[intFacing];
-                PlantingLogic.plantSquare(inventory, world, x, y, z, 9, direction, PlantingUtil.getTargetSlot(player.inventory));
-                inventory.saveToNBT(player.inventory.getStackInSlot(PlantingUtil.getTargetSlot(player.inventory)));
+                /*PlantingLogic.plantSquare(inventory, world, x, y, z, 9, direction, PlantingUtil.getTargetSlot(player.inventory));
+                inventory.saveToNBT(player.inventory.getStackInSlot(PlantingUtil.getTargetSlot(player.inventory)));*/
             }
 
             return true;
@@ -65,7 +61,8 @@ public class AdvancedSeedPlanter extends InventoryPlanterHelperTool {
         }
     }
 
-    public SmallInventory getInventory() {
-        return inventory;
+    @Override
+    public int getMaxItemUseDuration(ItemStack itemstack) {
+        return 1;
     }
 }
