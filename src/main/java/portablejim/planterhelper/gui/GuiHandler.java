@@ -8,6 +8,7 @@ import net.minecraft.world.World;
 import portablejim.planterhelper.PlanterHelper;
 import portablejim.planterhelper.items.AdvancedSeedPlanter;
 import portablejim.planterhelper.items.Planter;
+import portablejim.planterhelper.items.VeinSeedPlanter;
 
 /**
  * Created with IntelliJ IDEA.
@@ -34,7 +35,7 @@ public class GuiHandler implements IGuiHandler {
 
         switch (i) {
             case 0:
-                if(currentItem instanceof AdvancedSeedPlanter) {
+                if(currentItem instanceof AdvancedSeedPlanter || currentItem instanceof VeinSeedPlanter) {
                     return new SeedContainer(entityPlayer.inventory, new SeedInventory(entityPlayer.getHeldItem()));
                 }
             default:
@@ -55,7 +56,7 @@ public class GuiHandler implements IGuiHandler {
 
         switch (i) {
             case 0:
-                if(currentItem instanceof AdvancedSeedPlanter) {
+                if(currentItem instanceof AdvancedSeedPlanter || currentItem instanceof VeinSeedPlanter) {
                     return new SeedPlanterGui(entityPlayer.inventory, new SeedInventory(entityPlayer.getHeldItem()));
                 }
             default:

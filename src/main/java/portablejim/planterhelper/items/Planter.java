@@ -97,7 +97,7 @@ public abstract class Planter extends Item{
 
     public boolean canPlant(IInventory inv, World world, int x, int y, int z, ForgeDirection direction) {
         int nextSlot = PlantingLogic.getSeedsSlot(inv, getFirstSlot(inv));
-        if(nextSlot > 0) {
+        if(nextSlot >= 0) {
             ItemStack targetItem = inv.getStackInSlot(nextSlot);
             assert(targetItem != null);
             assert(targetItem.getItem() instanceof IPlantable);
@@ -162,15 +162,17 @@ public abstract class Planter extends Item{
         }
     }
 
-    private void plantSeedInPlace(IInventory inv, World world, int x, int y, int z, ForgeDirection direction) {
+    public boolean plantSeedInPlace(IInventory inv, World world, int x, int y, int z, ForgeDirection direction) {
         int slot = PlantingLogic.getSeedsSlot(inv, getFirstSlot(inv));
         if(slot < 0) {
-            return;
+            return false;
         }
         boolean success = PlantingLogic.placeSeed(inv, world, x, y, z, slot, direction);
         if(success) {
             inv.decrStackSize(slot, 1);
         }
+
+        return success;
     }
 
     public int getInvSlots() {

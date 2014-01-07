@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import portablejim.planterhelper.gui.GuiHandler;
 import portablejim.planterhelper.items.AdvancedSeedPlanter;
 import portablejim.planterhelper.items.BasicSeedPlanter;
+import portablejim.planterhelper.items.VeinSeedPlanter;
 import portablejim.planterhelper.network.PacketHandler;
 
 import static cpw.mods.fml.common.Mod.*;
@@ -35,14 +36,17 @@ public class PlanterHelper {
 
     public static BasicSeedPlanter basicPlanter;
     public static AdvancedSeedPlanter advancedPlanter;
+    public static VeinSeedPlanter veinPlanter;
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         basicPlanter = new BasicSeedPlanter(5432);
         advancedPlanter = new AdvancedSeedPlanter(5433);
+        veinPlanter = new VeinSeedPlanter(5434);
 
         GameRegistry.registerItem(basicPlanter, "PlanterHelper:basicPlanter");
         GameRegistry.registerItem(advancedPlanter, "PlanterHelper:advancedPlanter");
+        GameRegistry.registerItem(veinPlanter, "PlanterHelper:veinPlanter");
     }
 
     @EventHandler
@@ -59,6 +63,11 @@ public class PlanterHelper {
         ItemStack wheatStack = new ItemStack(Item.wheat);
         ItemStack carrotStack = new ItemStack(Item.carrot);
         ItemStack potatoStack = new ItemStack(Item.potato);
+
+        ItemStack netherStarStack = new ItemStack(Item.netherStar);
+        ItemStack dragonEggStack = new ItemStack(Block.dragonEgg);
+        ItemStack chestStack = new ItemStack(Block.chest);
+        ItemStack clockStack = new ItemStack(Item.pocketSundial);
 
         new GuiHandler();
 
@@ -82,8 +91,14 @@ public class PlanterHelper {
                 'b', basicPlanterStack,
                 'r', blazeRodStack);
 
+        GameRegistry.addRecipe(new ItemStack(veinPlanter), " n ", "dal", " h ",
+                'n', netherStarStack,
+                'd', dragonEggStack, 'a', advancedPlanter, 'l', clockStack,
+                'h', chestStack);
+
         LanguageRegistry.addName(basicPlanter, "Basic Planter");
         LanguageRegistry.addName(advancedPlanter, "Advanced Planter");
+        LanguageRegistry.addName(veinPlanter, "Vein Planter");
     }
 
 
