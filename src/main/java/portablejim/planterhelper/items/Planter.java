@@ -39,7 +39,6 @@ public abstract class Planter extends Item{
             this.invSlots = -1;
         }
 
-        this.hasGui = hasGui;
         this.range = range;
     }
 
@@ -68,7 +67,7 @@ public abstract class Planter extends Item{
         }
 
         if(canPlant(inventory, world, x, y, z, ForgeDirection.getOrientation(intDirection))) {
-            plant(inventory, world, x, y, z, this.range, player.rotationYaw, getFirstSlot(inventory));
+            plant(inventory, world, x, y, z, this.range, player.rotationYaw);
         }
 
         return true;
@@ -80,7 +79,7 @@ public abstract class Planter extends Item{
     }
 
     /*
-     * Overriden in Basic
+     * Overridden in Basic
      */
     public IInventory getInventory(EntityPlayer player) {
         if(player.getHeldItem().getItem() == this) {
@@ -90,7 +89,7 @@ public abstract class Planter extends Item{
     }
 
     /*
-     * Overriden in Basic
+     * Overridden in Basic
      */
     public int getFirstSlot(IInventory inventory) {
         return 0;
@@ -110,9 +109,9 @@ public abstract class Planter extends Item{
     }
 
     /*
-     * Overriden in Vein
+     * Overridden in Vein
      */
-    public void plant(IInventory inv, World world, int startX, int startY, int startZ, int width, float playerRotation, int initialSlot) {
+    public void plant(IInventory inv, World world, int startX, int startY, int startZ, int width, float playerRotation) {
         int startCornerX;
         int startCornerZ;
 
