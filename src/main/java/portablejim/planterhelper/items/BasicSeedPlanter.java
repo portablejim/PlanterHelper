@@ -1,19 +1,9 @@
 package portablejim.planterhelper.items;
 
-import cpw.mods.fml.common.FMLLog;
-import net.minecraft.block.Block;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.item.EnumToolMaterial;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.MathHelper;
-import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
-import net.minecraftforge.common.IPlantable;
-import portablejim.planterhelper.core.PlantingLogic;
-import portablejim.planterhelper.core.PlantingUtil;
+import net.minecraft.inventory.IInventory;
+import portablejim.planterhelper.items.lib.Planter;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,29 +12,36 @@ import portablejim.planterhelper.core.PlantingUtil;
  * Time: 10:18 AM
  * To change this template use File | Settings | File Templates.
  */
-public class BasicSeedPlanter extends Item {
+public class BasicSeedPlanter extends Planter {
 
-    public BasicSeedPlanter(int par1) {
-        super(par1);
-        this.setMaxStackSize(1);
-        this.setCreativeTab(CreativeTabs.tabTools);
+    public BasicSeedPlanter(int itemId) {
+        super(itemId, 0, 3);
         this.setUnlocalizedName("basicSeedPlanter");
     }
 
     @Override
-    public boolean onItemUse(ItemStack itemStackUsed, EntityPlayer player, World world, int x, int y, int z, int intDirection, float par8, float par9, float par10) {
-        int intFacing = MathHelper.floor_double((double) (player.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
-        ForgeDirection[] directions = { ForgeDirection.SOUTH, ForgeDirection.WEST, ForgeDirection.NORTH, ForgeDirection.EAST };
-        if(PlantingUtil.canPlant(player.inventory, world, x, y, z, ForgeDirection.getOrientation(intDirection))) {
-            ForgeDirection direction = directions[intFacing];
-            PlantingLogic.plantSquare(player.inventory, world, x, y, z, 3, direction, PlantingUtil.getTargetSlot(player.inventory));
-        }
-
-        return true;
+    public IInventory getInventory(EntityPlayer player) {
+        return player.inventory;
     }
 
     @Override
-    public int getMaxItemUseDuration(ItemStack itemstack) {
-        return 1;
+    public int getFirstSlot(IInventory inventory) {
+        if(inventory instanceof InventoryPlayer) {
+            int targetItemNum;
+            InventoryPlayer inventoryPlayer = (InventoryPlayer) inventory;
+
+            // Wrap around on the left
+            if(inventoryPlayer.currentItem == InventoryPlayer.getHotbarSize() - 1) {
+                targetItemNum = 0;
+            }
+            else {
+                targetItemNum = inventoryPlayer.currentItem + 1;
+            }
+
+            return targetItemNum;
+        }
+        else {
+            return -1;
+        }
     }
 }

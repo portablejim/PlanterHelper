@@ -2,7 +2,6 @@ package portablejim.planterhelper.gui.util;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemStack;
 
 /**
  * Created with IntelliJ IDEA.

@@ -6,10 +6,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
 import portablejim.planterhelper.PlanterHelper;
-import portablejim.planterhelper.containers.SmallContainer;
-import portablejim.planterhelper.inventories.SmallInventory;
+import portablejim.planterhelper.containers.SeedContainer;
+import portablejim.planterhelper.inventories.SeedInventory;
 import portablejim.planterhelper.items.AdvancedSeedPlanter;
-import portablejim.planterhelper.items.lib.InventoryPlanterHelperTool;
+import portablejim.planterhelper.items.lib.Planter;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,8 +18,8 @@ import portablejim.planterhelper.items.lib.InventoryPlanterHelperTool;
  * Time: 12:23 PM
  * To change this template use File | Settings | File Templates.
  */
-public class SmallGuiHandler implements IGuiHandler {
-    public SmallGuiHandler() {
+public class GuiHandler implements IGuiHandler {
+    public GuiHandler() {
         NetworkRegistry.instance().registerGuiHandler(PlanterHelper.instance, this);
     }
 
@@ -30,14 +30,14 @@ public class SmallGuiHandler implements IGuiHandler {
         }
 
         Item currentItem = entityPlayer.getCurrentEquippedItem().getItem();
-        if(!(currentItem instanceof InventoryPlanterHelperTool)) {
+        if(!(currentItem instanceof Planter)) {
             return null;
         }
 
         switch (i) {
             case 0:
                 if(currentItem instanceof AdvancedSeedPlanter) {
-                    return new SmallContainer(entityPlayer.inventory, new SmallInventory(entityPlayer.getHeldItem()));
+                    return new SeedContainer(entityPlayer.inventory, new SeedInventory(entityPlayer.getHeldItem()));
                 }
             default:
                 return null;
@@ -51,14 +51,14 @@ public class SmallGuiHandler implements IGuiHandler {
         }
 
         Item currentItem = entityPlayer.getCurrentEquippedItem().getItem();
-        if(!(currentItem instanceof InventoryPlanterHelperTool)) {
+        if(!(currentItem instanceof Planter)) {
             return null;
         }
 
         switch (i) {
             case 0:
                 if(currentItem instanceof AdvancedSeedPlanter) {
-                    return new SeedPlanterGui(entityPlayer.inventory, new SmallInventory(entityPlayer.getHeldItem()));
+                    return new SeedPlanterGui(entityPlayer.inventory, new SeedInventory(entityPlayer.getHeldItem()));
                 }
             default:
                 return null;

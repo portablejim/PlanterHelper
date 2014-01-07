@@ -9,7 +9,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import portablejim.planterhelper.gui.SmallGuiHandler;
+import portablejim.planterhelper.gui.GuiHandler;
 import portablejim.planterhelper.items.AdvancedSeedPlanter;
 import portablejim.planterhelper.items.BasicSeedPlanter;
 
@@ -56,7 +56,7 @@ public class PlanterHelper {
         ItemStack carrotStack = new ItemStack(Item.carrot);
         ItemStack potatoStack = new ItemStack(Item.potato);
 
-        new SmallGuiHandler();
+        new GuiHandler();
 
         GameRegistry.addRecipe(new ItemStack(basicPlanter), "wcp", " d ", " h ",
                 'w', wheatStack, 'c', carrotStack, 'p', potatoStack,

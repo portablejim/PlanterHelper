@@ -1,6 +1,5 @@
 package portablejim.planterhelper.core;
 
-import cpw.mods.fml.common.FMLLog;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -16,84 +15,12 @@ import net.minecraftforge.common.IPlantable;
  * To change this template use File | Settings | File Templates.
  */
 public class PlantingLogic {
-    public static void plantSquare(IInventory inv, World world, int startX, int startY, int startZ, int width, ForgeDirection direction, int initialSlot) {
-        int startCornerX;
-        int startCornerZ;
-        switch (direction) {
-            case NORTH:
-                startCornerX = startX - ((width - 1) / 2);
-                startCornerZ = startZ;
+    public static int getSeedsSlot(IInventory inv, int initialSlot) {
+        initialSlot = initialSlot < 0 ? 0 : initialSlot;
 
-                for(int i = startCornerZ; i > startCornerZ - width; --i) {
-                    for(int j = startCornerX; j < startCornerX + width; j++) {
-                        int slot = getSeedsSlot(inv, initialSlot);
-                        if(slot < 0) {
-                            return;
-                        }
-                        boolean success = placeSeed(inv, world, j, startY, i, slot, direction);
-                        if(success) {
-                            inv.decrStackSize(slot, 1);
-                        }
-                    }
-                }
-                break;
-            case EAST:
-                startCornerX = startX;
-                startCornerZ = startZ - ((width - 1) / 2);
+        ItemStack initialTarget = inv.getStackInSlot(initialSlot);
 
-                for(int i = startCornerX; i < startCornerX + width; ++i) {
-                    for(int j = startCornerZ; j < startCornerZ + width; j++) {
-                        int slot = getSeedsSlot(inv, initialSlot);
-                        if(slot < 0) {
-                            return;
-                        }
-                        boolean success = placeSeed(inv, world, i, startY, j, slot, direction);
-                        if(success) {
-                            inv.decrStackSize(slot, 1);
-                        }
-                    }
-                }
-                break;
-            case SOUTH:
-                startCornerX = startX + ((width - 1) / 2);
-                startCornerZ = startZ;
-
-                for(int i = startCornerZ; i < startCornerZ + width; ++i) {
-                    for(int j = startCornerX; j > startCornerX - width; j--) {
-                        int slot = getSeedsSlot(inv, initialSlot);
-                        if(slot < 0) {
-                            return;
-                        }
-                        boolean success = placeSeed(inv, world, j, startY, i, slot, direction);
-                        if(success) {
-                            inv.decrStackSize(slot, 1);
-                        }
-                    }
-                }
-                break;
-            case WEST:
-                startCornerX = startX;
-                startCornerZ = startZ + ((width - 1) / 2);
-
-                for(int i = startCornerX; i > startCornerX - width; --i) {
-                    for(int j = startCornerZ; j > startCornerZ - width; j--) {
-                        int slot = getSeedsSlot(inv, initialSlot);
-                        if(slot < 0) {
-                            return;
-                        }
-                        boolean success = placeSeed(inv, world, i, startY, j, slot, direction);
-                        if(success) {
-                            inv.decrStackSize(slot, 1);
-                        }
-                    }
-                }
-        }
-    }
-
-    private static int getSeedsSlot(IInventory inv, int initialSlot) {
-        ItemStack targetHotbarSlot = inv.getStackInSlot(initialSlot);
-
-        if(targetHotbarSlot != null && targetHotbarSlot.stackSize > 0) {
+        if(initialTarget != null && initialTarget.stackSize > 0) {
             return initialSlot;
         }
 
@@ -109,7 +36,7 @@ public class PlantingLogic {
         return slot;
     }
 
-    private static boolean placeSeed(IInventory inv, World world, int x, int y, int z, int invPos, ForgeDirection direction) {
+    public static boolean placeSeed(IInventory inv, World world, int x, int y, int z, int invPos, ForgeDirection direction) {
 
         ItemStack currentItem = inv.getStackInSlot(invPos);
         if(currentItem == null || !(currentItem.getItem() instanceof IPlantable)) {
@@ -136,5 +63,19 @@ public class PlantingLogic {
         world.setBlock(x, y + 1, z, plantId, plantMeta, 3);
 
         return true;
+    }
+
+    public static boolean targetedSuitableFarmland(World world, int x, int y, int z, ForgeDirection direction, IPlantable plantable) {
+        int blockId = world.getBlockId(x, y, z);
+
+        if(blockId > Block.blocksList.length - 1) {
+            return false;
+        }
+
+        if(Block.blocksList[blockId] == null) {
+            return false;
+        }
+
+        return Block.blocksList[blockId].canSustainPlant(world, x, y, z, direction, plantable);
     }
 }

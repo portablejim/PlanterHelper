@@ -1,19 +1,13 @@
 package portablejim.planterhelper.containers;
 
-import cpw.mods.fml.common.FMLLog;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ContainerChest;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
 import portablejim.planterhelper.gui.util.DisabledSlot;
 import portablejim.planterhelper.gui.util.SeedSlot;
-import portablejim.planterhelper.inventories.SmallInventory;
+import portablejim.planterhelper.inventories.SeedInventory;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,11 +16,11 @@ import portablejim.planterhelper.inventories.SmallInventory;
  * Time: 12:41 PM
  * To change this template use File | Settings | File Templates.
  */
-public class SmallContainer extends Container {
-    private SmallInventory inv;
+public class SeedContainer extends Container {
+    private SeedInventory inv;
     private int rows;
 
-    public SmallContainer(InventoryPlayer player, SmallInventory inventory) {
+    public SeedContainer(InventoryPlayer player, SeedInventory inventory) {
         this.inv = inventory;
         rows = this.inv.getSizeInventory() / 9;
 
@@ -71,14 +65,6 @@ public class SmallContainer extends Container {
 
     @Override
     public ItemStack slotClick(int paramInt1, int paramInt2, int paramInt3, EntityPlayer paramEntityPlayer) {
-        FMLLog.getLogger().info(String.format("CLICK: %d %d %d", paramInt1, paramInt2, paramInt3));
-        /*if(paramInt1 > 0 && paramInt1 < this.inv.getSizeInventory()) {
-            return null;
-        }
-        else {
-            return super.slotClick(paramInt1, paramInt2, paramInt3, paramEntityPlayer);
-        }
-        //return null; //super.slotClick(paramInt1, paramInt2, paramInt3, paramEntityPlayer);*/
         return super.slotClick(paramInt1, paramInt2, paramInt3, paramEntityPlayer);
     }
 

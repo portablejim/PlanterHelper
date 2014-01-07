@@ -1,14 +1,12 @@
 package portablejim.planterhelper.gui;
 
-import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
-import portablejim.planterhelper.containers.SmallContainer;
-import portablejim.planterhelper.inventories.SmallInventory;
+import portablejim.planterhelper.containers.SeedContainer;
+import portablejim.planterhelper.inventories.SeedInventory;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,11 +21,11 @@ public class SeedPlanterGui extends GuiContainer {
     private int rows;
 
     InventoryPlayer playerInventory;
-    SmallInventory seedInventory;
+    SeedInventory seedInventory;
 
-    public SeedPlanterGui(InventoryPlayer playerInv, SmallInventory itemInv)
+    public SeedPlanterGui(InventoryPlayer playerInv, SeedInventory itemInv)
     {
-        super(new SmallContainer(playerInv, itemInv));
+        super(new SeedContainer(playerInv, itemInv));
         this.playerInventory = playerInv;
         this.seedInventory = itemInv;
 
