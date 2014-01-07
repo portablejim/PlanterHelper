@@ -5,8 +5,6 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
-import portablejim.planterhelper.containers.SeedContainer;
-import portablejim.planterhelper.inventories.SeedInventory;
 
 /**
  * Created with IntelliJ IDEA.

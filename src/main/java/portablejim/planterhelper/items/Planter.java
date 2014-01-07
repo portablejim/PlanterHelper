@@ -11,7 +11,7 @@ import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.IPlantable;
 import portablejim.planterhelper.PlanterHelper;
 import portablejim.planterhelper.core.PlantingLogic;
-import portablejim.planterhelper.inventories.SeedInventory;
+import portablejim.planterhelper.gui.SeedInventory;
 
 /**
  * Created with IntelliJ IDEA.

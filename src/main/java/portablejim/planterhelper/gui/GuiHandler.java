@@ -6,8 +6,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
 import portablejim.planterhelper.PlanterHelper;
-import portablejim.planterhelper.containers.SeedContainer;
-import portablejim.planterhelper.inventories.SeedInventory;
 import portablejim.planterhelper.items.AdvancedSeedPlanter;
 import portablejim.planterhelper.items.Planter;
 

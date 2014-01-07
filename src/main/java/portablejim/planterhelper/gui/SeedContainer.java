@@ -1,4 +1,4 @@
-package portablejim.planterhelper.containers;
+package portablejim.planterhelper.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -7,7 +7,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import portablejim.planterhelper.gui.util.DisabledSlot;
 import portablejim.planterhelper.gui.util.SeedSlot;
-import portablejim.planterhelper.inventories.SeedInventory;
+import portablejim.planterhelper.gui.SeedInventory;
 
 /**
  * Created with IntelliJ IDEA.
