@@ -16,7 +16,7 @@ public class BasicSeedPlanter extends Planter {
 
     public BasicSeedPlanter(int itemId) {
         super(itemId, 0, 3);
-        this.setUnlocalizedName("basicSeedPlanter");
+        this.setUnlocalizedName("PlanterHelper:basicSeedPlanter");
     }
 
     @Override

@@ -12,6 +12,6 @@ import portablejim.planterhelper.items.lib.Planter;
 public class AdvancedSeedPlanter extends Planter {
     public AdvancedSeedPlanter(int par1) {
         super(par1, 27, 9);
-        this.setUnlocalizedName("advancedSeedPlanter");
+        this.setUnlocalizedName("PlanterHelper:advancedSeedPlanter");
     }
 }

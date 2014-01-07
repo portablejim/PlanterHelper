@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import portablejim.planterhelper.gui.GuiHandler;
 import portablejim.planterhelper.items.AdvancedSeedPlanter;
 import portablejim.planterhelper.items.BasicSeedPlanter;
+import portablejim.planterhelper.network.PacketHandler;
 
 import static cpw.mods.fml.common.Mod.*;
 
@@ -24,7 +25,7 @@ import static cpw.mods.fml.common.Mod.*;
  */
 
 @Mod(modid = PlanterHelper.MODID, version = PlanterHelper.VERSION)
-@NetworkMod(clientSideRequired = true, serverSideRequired = true, channels = {PlanterHelper.MODID})
+@NetworkMod(clientSideRequired = true, serverSideRequired = true, channels = {PlanterHelper.MODID}, packetHandler = PacketHandler.class)
 public class PlanterHelper {
     public static final String MODID = "PlanterHelper";
     public static final String VERSION = "0.1";
@@ -39,6 +40,9 @@ public class PlanterHelper {
     public void preInit(FMLPreInitializationEvent event) {
         basicPlanter = new BasicSeedPlanter(5432);
         advancedPlanter = new AdvancedSeedPlanter(5433);
+
+        GameRegistry.registerItem(basicPlanter, "PlanterHelper:basicPlanter");
+        GameRegistry.registerItem(advancedPlanter, "PlanterHelper:advancedPlanter");
     }
 
     @EventHandler
