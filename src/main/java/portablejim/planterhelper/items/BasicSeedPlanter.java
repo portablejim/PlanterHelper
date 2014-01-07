@@ -3,7 +3,6 @@ package portablejim.planterhelper.items;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
-import portablejim.planterhelper.items.lib.Planter;
 
 /**
  * Created with IntelliJ IDEA.

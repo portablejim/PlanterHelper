@@ -9,7 +9,7 @@ import portablejim.planterhelper.PlanterHelper;
 import portablejim.planterhelper.containers.SeedContainer;
 import portablejim.planterhelper.inventories.SeedInventory;
 import portablejim.planterhelper.items.AdvancedSeedPlanter;
-import portablejim.planterhelper.items.lib.Planter;
+import portablejim.planterhelper.items.Planter;
 
 /**
  * Created with IntelliJ IDEA.

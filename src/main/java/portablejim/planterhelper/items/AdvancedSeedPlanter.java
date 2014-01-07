@@ -1,7 +1,5 @@
 package portablejim.planterhelper.items;
 
-import portablejim.planterhelper.items.lib.Planter;
-
 /**
  * Created with IntelliJ IDEA.
  * User: james
