@@ -3,18 +3,28 @@ package portablejim.planterhelper;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStartedEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.command.ServerCommandManager;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.MinecraftServer;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.ForgeSubscribe;
+import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
+import portablejim.planterhelper.commands.CommandSmiteMe;
 import portablejim.planterhelper.gui.GuiHandler;
 import portablejim.planterhelper.items.AdvancedSeedPlanter;
 import portablejim.planterhelper.items.BasicSeedPlanter;
 import portablejim.planterhelper.items.DragonEggToken;
 import portablejim.planterhelper.items.VeinSeedPlanter;
 import portablejim.planterhelper.network.PacketHandler;
+import java.util.HashSet;
 
 import static cpw.mods.fml.common.Mod.*;
 
@@ -106,7 +116,32 @@ public class PlanterHelper {
         LanguageRegistry.addName(advancedPlanter, "Advanced Planter");
         LanguageRegistry.addName(veinPlanter, "Vein Planter");
         LanguageRegistry.addName(eggToken, "Dragon Egg Token");
+
+        MinecraftForge.EVENT_BUS.register(this);
     }
 
+    @EventHandler
+    public void serverStarted(FMLServerStartedEvent event) {
+        ServerCommandManager scm = (ServerCommandManager) MinecraftServer.getServer().getCommandManager();
+        scm.registerCommand(new CommandSmiteMe());
+    }
 
+    @ForgeSubscribe
+    public void lightningStrike(EntityStruckByLightningEvent event) {
+        final int HOTBAR_SIZE = 9;
+        Entity entity = event.entity;
+        HashSet<String> easterEggUsers = new HashSet<String>();
+        easterEggUsers.add("portablejim");
+        easterEggUsers.add("straymaverick");
+
+        if(entity instanceof EntityPlayer && easterEggUsers.contains(((EntityPlayer) entity).username.toLowerCase())) {
+            EntityPlayer player = (EntityPlayer) entity;
+            for(int i = 0; i < HOTBAR_SIZE; i++) {
+                ItemStack item = player.inventory.getStackInSlot(i);
+                if(item != null && item.getItem() instanceof VeinSeedPlanter && item.getItemDamage() == 0) {
+                    item.setItemDamage(1);
+                }
+            }
+        }
+    }
 }
