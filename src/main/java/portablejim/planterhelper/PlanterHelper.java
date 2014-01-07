@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import portablejim.planterhelper.gui.GuiHandler;
 import portablejim.planterhelper.items.AdvancedSeedPlanter;
 import portablejim.planterhelper.items.BasicSeedPlanter;
+import portablejim.planterhelper.items.DragonEggToken;
 import portablejim.planterhelper.items.VeinSeedPlanter;
 import portablejim.planterhelper.network.PacketHandler;
 
@@ -37,13 +38,16 @@ public class PlanterHelper {
     public static BasicSeedPlanter basicPlanter;
     public static AdvancedSeedPlanter advancedPlanter;
     public static VeinSeedPlanter veinPlanter;
+    public static DragonEggToken eggToken;
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
+        eggToken = new DragonEggToken(5435);
         basicPlanter = new BasicSeedPlanter(5432);
         advancedPlanter = new AdvancedSeedPlanter(5433);
         veinPlanter = new VeinSeedPlanter(5434);
 
+        GameRegistry.registerItem(eggToken, "PlanterHelper:dragonEggToken");
         GameRegistry.registerItem(basicPlanter, "PlanterHelper:basicPlanter");
         GameRegistry.registerItem(advancedPlanter, "PlanterHelper:advancedPlanter");
         GameRegistry.registerItem(veinPlanter, "PlanterHelper:veinPlanter");
@@ -96,9 +100,12 @@ public class PlanterHelper {
                 'd', dragonEggStack, 'a', advancedPlanter, 'l', clockStack,
                 'h', chestStack);
 
+        GameRegistry.addShapelessRecipe(new ItemStack(Block.dragonEgg), eggToken);
+
         LanguageRegistry.addName(basicPlanter, "Basic Planter");
         LanguageRegistry.addName(advancedPlanter, "Advanced Planter");
         LanguageRegistry.addName(veinPlanter, "Vein Planter");
+        LanguageRegistry.addName(eggToken, "Dragon Egg Token");
     }
 
 
