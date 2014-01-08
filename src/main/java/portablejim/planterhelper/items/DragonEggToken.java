@@ -1,3 +1,20 @@
+/* This file is part of PlanterHelper.
+ *
+ *    PlanterHelper is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU Lesser General Public License as
+ *    published by the Free Software Foundation, either version 3 of
+ *     the License, or (at your option) any later version.
+ *
+ *    PlanterHelper is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU Lesser General Public License for more details.
+ *
+ *    You should have received a copy of the GNU Lesser General Public
+ *    License along with PlanterHelper.
+ *    If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package portablejim.planterhelper.items;
 
 import net.minecraft.creativetab.CreativeTabs;
@@ -9,11 +26,9 @@ import net.minecraft.util.StatCollector;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: james
- * Date: 7/01/14
- * Time: 7:59 PM
- * To change this template use File | Settings | File Templates.
+ * Token that can be crafted back to a dragon egg.
+ * Used to allow the tier 3 to be crafted with a dragon egg without loosing
+ * the egg.
  */
 public class DragonEggToken extends Item {
     public DragonEggToken(int par1) {

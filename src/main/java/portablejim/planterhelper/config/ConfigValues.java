@@ -1,3 +1,20 @@
+/* This file is part of PlanterHelper.
+ *
+ *    PlanterHelper is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU Lesser General Public License as
+ *    published by the Free Software Foundation, either version 3 of
+ *     the License, or (at your option) any later version.
+ *
+ *    PlanterHelper is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU Lesser General Public License for more details.
+ *
+ *    You should have received a copy of the GNU Lesser General Public
+ *    License along with PlanterHelper.
+ *    If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package portablejim.planterhelper.config;
 
 import net.minecraftforge.common.Configuration;
@@ -5,11 +22,8 @@ import net.minecraftforge.common.Configuration;
 import java.io.File;
 
 /**
- * Created with IntelliJ IDEA.
- * User: james
- * Date: 8/01/14
- * Time: 10:32 AM
- * To change this template use File | Settings | File Templates.
+ * Store values and interface with config file.
+ * Values are retrieved from here by the rest of the mod.
  */
 public class ConfigValues {
     private Configuration configFile;

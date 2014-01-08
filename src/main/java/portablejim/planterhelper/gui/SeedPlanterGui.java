@@ -1,3 +1,20 @@
+/* This file is part of PlanterHelper.
+ *
+ *    PlanterHelper is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU Lesser General Public License as
+ *    published by the Free Software Foundation, either version 3 of
+ *     the License, or (at your option) any later version.
+ *
+ *    PlanterHelper is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU Lesser General Public License for more details.
+ *
+ *    You should have received a copy of the GNU Lesser General Public
+ *    License along with PlanterHelper.
+ *    If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package portablejim.planterhelper.gui;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -7,11 +24,8 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 /**
- * Created with IntelliJ IDEA.
- * User: james
- * Date: 22/12/13
- * Time: 3:33 PM
- * To change this template use File | Settings | File Templates.
+ * Varible sized GUI that auto-resizes (like the chest GUI) to the inventory
+ * size.
  */
 public class SeedPlanterGui extends GuiContainer {
     private static final ResourceLocation background = new ResourceLocation("textures/gui/container/generic_54.png");
