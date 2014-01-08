@@ -23,6 +23,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.IPlantable;
 import portablejim.planterhelper.gui.util.DisabledSlot;
 import portablejim.planterhelper.gui.util.SeedSlot;
 
@@ -88,7 +89,7 @@ public class SeedContainer extends Container {
         Slot slotObject = (Slot) inventorySlots.get(slot);
 
         //null checks and checks if the item can be stacked (maxStackSize > 1)
-        if (slotObject != null && slotObject.getHasStack()) {
+        if (slotObject != null && slotObject.getHasStack() && slotObject.getStack().getItem() instanceof IPlantable) {
             ItemStack stackInSlot = slotObject.getStack();
             stack = stackInSlot.copy();
 

@@ -19,13 +19,19 @@ package portablejim.planterhelper.gui.util;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.IPlantable;
 
 /**
- * Unmodified slot to identify this slot as part of the mod
- * (vs regular player inventory)
+ * Slot that only accepts plantable items.
  */
 public class SeedSlot extends Slot {
     public SeedSlot(IInventory par1IInventory, int par2, int par3, int par4) {
         super(par1IInventory, par2, par3, par4);
+    }
+
+    @Override
+    public boolean isItemValid(ItemStack stack) {
+        return stack != null && stack.getItem() instanceof IPlantable;
     }
 }
