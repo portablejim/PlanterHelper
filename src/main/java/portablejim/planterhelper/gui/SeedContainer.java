@@ -17,6 +17,7 @@
 
 package portablejim.planterhelper.gui;
 
+import invtweaks.api.container.ChestContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -28,6 +29,7 @@ import portablejim.planterhelper.gui.util.SeedSlot;
 /**
  * Container that sets-up arbitrarily sized inventories like chests.
  */
+@ChestContainer
 public class SeedContainer extends Container {
     private SeedInventory inv;
     private int rows;
