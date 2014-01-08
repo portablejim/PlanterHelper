@@ -5,6 +5,7 @@ import cpw.mods.fml.relauncher.Side;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
+import portablejim.planterhelper.PlanterHelper;
 import portablejim.planterhelper.gui.SeedInventory;
 import portablejim.planterhelper.items.Planter;
 import portablejim.planterhelper.util.Point;
@@ -61,6 +62,12 @@ public class VeinPlanterInstance {
 
                     Point blockPos = new Point(x + dx, y + dy, z + dz);
 
+                    int range = PlanterHelper.instance.configValues.VEIN_RANGE;
+
+                    if(!initialBlock.isWithinRange(blockPos, range) && range > 0) {
+                        continue;
+                    }
+
                     if(usedPlanter.canPlant(inventory, world, blockPos.getX(), blockPos.getY(), blockPos.getZ(), direction)) {
                         boolean success = usedPlanter.plantSeedInPlace(inventory, world, blockPos.getX(), blockPos.getY(), blockPos.getZ(), direction);
                         if(success) {
@@ -77,7 +84,7 @@ public class VeinPlanterInstance {
     }
 
     public void plantScheduled() {
-        int speed = 20;
+        int speed = PlanterHelper.instance.configValues.VEIN_SPEED;
         for(int i = 0; i < speed; i++) {
             if(!plantQueue.isEmpty()) {
                 Point target = plantQueue.remove();
