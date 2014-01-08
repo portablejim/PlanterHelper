@@ -51,12 +51,11 @@ import static cpw.mods.fml.common.Mod.*;
  * Main mod class.
  */
 
-@Mod(modid = PlanterHelper.MODID, name = PlanterHelper.NAME, version = PlanterHelper.VERSION)
+@Mod(modid = PlanterHelper.MODID, name = PlanterHelper.NAME)
 @NetworkMod(clientSideRequired = true, serverSideRequired = true, channels = {PlanterHelper.MODID}, packetHandler = PacketHandler.class)
 public class PlanterHelper {
     public static final String MODID = "PlanterHelper";
     public static final String NAME = "Planter Helper";
-    public static final String VERSION = "0.1";
 
     @Instance(MODID)
     public static PlanterHelper instance;
