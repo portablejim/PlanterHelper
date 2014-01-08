@@ -18,6 +18,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import portablejim.planterhelper.commands.CommandSmiteMe;
+import portablejim.planterhelper.config.ConfigValues;
 import portablejim.planterhelper.gui.GuiHandler;
 import portablejim.planterhelper.items.AdvancedSeedPlanter;
 import portablejim.planterhelper.items.BasicSeedPlanter;
@@ -45,6 +46,8 @@ public class PlanterHelper {
     @Instance(MODID)
     public static PlanterHelper instance;
 
+    public ConfigValues configValues;
+
     public static BasicSeedPlanter basicPlanter;
     public static AdvancedSeedPlanter advancedPlanter;
     public static VeinSeedPlanter veinPlanter;
@@ -52,10 +55,13 @@ public class PlanterHelper {
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        eggToken = new DragonEggToken(5435);
-        basicPlanter = new BasicSeedPlanter(5432);
-        advancedPlanter = new AdvancedSeedPlanter(5433);
-        veinPlanter = new VeinSeedPlanter(5434);
+        configValues = new ConfigValues(event.getSuggestedConfigurationFile());
+        configValues.loadConfigFile();
+
+        eggToken = new DragonEggToken(configValues.ITEMIDS_EGG_TOKEN);
+        basicPlanter = new BasicSeedPlanter(configValues.ITEMIDS_BASIC_PLANTER);
+        advancedPlanter = new AdvancedSeedPlanter(configValues.ITEMIDS_ADVANCED_PLANTER);
+        veinPlanter = new VeinSeedPlanter(configValues.ITEMIDS_VEIN_PLANTER);
 
         GameRegistry.registerItem(eggToken, "PlanterHelper:dragonEggToken");
         GameRegistry.registerItem(basicPlanter, "PlanterHelper:basicPlanter");
