@@ -33,7 +33,7 @@ import java.util.List;
 public class DragonEggToken extends Item {
     public DragonEggToken(int par1) {
         super(par1);
-        this.setUnlocalizedName("PlanterHelper:DragonEggToken");
+        this.setUnlocalizedName("PlanterHelper:dragonEggToken");
         this.setTextureName("PlanterHelper:dragonEggToken");
         this.setCreativeTab(CreativeTabs.tabMisc);
     }
