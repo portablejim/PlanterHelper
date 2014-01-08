@@ -6,7 +6,6 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartedEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.command.ServerCommandManager;
 import net.minecraft.entity.Entity;
@@ -37,10 +36,11 @@ import static cpw.mods.fml.common.Mod.*;
  * To change this template use File | Settings | File Templates.
  */
 
-@Mod(modid = PlanterHelper.MODID, version = PlanterHelper.VERSION)
+@Mod(modid = PlanterHelper.MODID, name = PlanterHelper.NAME, version = PlanterHelper.VERSION)
 @NetworkMod(clientSideRequired = true, serverSideRequired = true, channels = {PlanterHelper.MODID}, packetHandler = PacketHandler.class)
 public class PlanterHelper {
     public static final String MODID = "PlanterHelper";
+    public static final String NAME = "Planter Helper";
     public static final String VERSION = "0.1";
 
     @Instance(MODID)
@@ -117,11 +117,6 @@ public class PlanterHelper {
                 'h', chestStack);
 
         GameRegistry.addShapelessRecipe(new ItemStack(Block.dragonEgg), eggToken);
-
-        LanguageRegistry.addName(basicPlanter, "Basic Planter");
-        LanguageRegistry.addName(advancedPlanter, "Advanced Planter");
-        LanguageRegistry.addName(veinPlanter, "Vein Planter");
-        LanguageRegistry.addName(eggToken, "Dragon Egg Token");
 
         MinecraftForge.EVENT_BUS.register(this);
     }

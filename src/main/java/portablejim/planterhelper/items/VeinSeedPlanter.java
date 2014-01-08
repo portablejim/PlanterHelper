@@ -7,6 +7,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import portablejim.planterhelper.PlanterHelper;
@@ -59,6 +60,7 @@ public class VeinSeedPlanter extends Planter {
     public void getSubItems(int id, CreativeTabs tab, List list) {
         for(int i = 0; i < icons.length; i++) {
             ItemStack itemstack = new ItemStack(id, 1, i);
+            //noinspection unchecked
             list.add(itemstack);
         }
 
@@ -67,7 +69,8 @@ public class VeinSeedPlanter extends Planter {
     @Override
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
         if(par1ItemStack.getItemDamage() == 1) {
-            par3List.add("Now in MANgenta");
+            //noinspection unchecked
+            par3List.add(StatCollector.translateToLocal(String.format("%s.info1", this.getUnlocalizedName())));
         }
     }
 }

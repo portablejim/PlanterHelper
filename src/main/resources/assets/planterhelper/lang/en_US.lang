@@ -1,0 +1,10 @@
+# Item Names
+item.PlanterHelper:basicSeedPlanter.name=Basic Planter
+item.PlanterHelper:advancedSeedPlanter.name=Advanced Planter
+item.PlanterHelper:veinSeedPlanter.name=Vein Planter
+item.PlanterHelper:dragonEggToken.name=Dragon Egg Token
+
+# Item Info
+item.PlanterHelper:veinSeedPlanter.info1=Now in MANgenta
+item.PlanterHelper:dragonEggToken.info1=In case you wanted your egg back.
+
