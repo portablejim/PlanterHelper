@@ -19,6 +19,7 @@ package portablejim.planterhelper;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartedEvent;
 import cpw.mods.fml.common.network.NetworkMod;
@@ -28,13 +29,17 @@ import net.minecraft.command.ServerCommandManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
+import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 import portablejim.planterhelper.commands.CommandSmiteMe;
 import portablejim.planterhelper.config.ConfigValues;
+import portablejim.planterhelper.core.FarmlandCraftingHandler;
 import portablejim.planterhelper.gui.GuiHandler;
 import portablejim.planterhelper.items.AdvancedSeedPlanter;
 import portablejim.planterhelper.items.BasicSeedPlanter;
@@ -105,6 +110,9 @@ public class PlanterHelper {
 
         new GuiHandler();
 
+        /*
+         * Item Recipes
+         */
         GameRegistry.addRecipe(new ItemStack(basicPlanter), "wcp", " d ", " h ",
                 'w', wheatStack, 'c', carrotStack, 'p', potatoStack,
                 'd', dispenserStack,
@@ -132,7 +140,24 @@ public class PlanterHelper {
 
         GameRegistry.addShapelessRecipe(new ItemStack(Block.dragonEgg), eggToken);
 
+
+        GameRegistry.registerCraftingHandler(new FarmlandCraftingHandler());
+
         MinecraftForge.EVENT_BUS.register(this);
+    }
+
+    @EventHandler
+    public void postInit(FMLPostInitializationEvent event) {
+        for(Item item : Item.itemsList) {
+            if(item != null && item instanceof ItemHoe) {
+                OreDictionary.registerOre("hoe", new ItemStack(item, 1, OreDictionary.WILDCARD_VALUE));
+            }
+        }
+
+        /*
+         * Misc Recipes
+         */
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Block.tilledField), Block.dirt, "hoe"));
     }
 
     @EventHandler
