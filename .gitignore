@@ -4,7 +4,6 @@ build/
 eclipse/
 forge-*-changelog.txt
 gradle/
-gradlew
 idea-files/
 misc-files/
 CREDITS-fml.txt
