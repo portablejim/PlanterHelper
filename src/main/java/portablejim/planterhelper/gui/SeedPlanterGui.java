@@ -49,8 +49,8 @@ public class SeedPlanterGui extends GuiContainer {
     }
 
     public void drawGuiContainerForegroundLayer(int par1, int par2) {
-        this.fontRenderer.drawString(this.seedInventory.isInvNameLocalized() ? this.seedInventory.getInvName() : I18n.getString(this.seedInventory.getInvName()), 8, 6, 7210752);
-        this.fontRenderer.drawString(this.playerInventory.isInvNameLocalized() ? this.playerInventory.getInvName() : I18n.getString(this.playerInventory.getInvName()), 8, this.ySize - 96, 7210752);
+        this.fontRenderer.drawString(this.seedInventory.isInvNameLocalized() ? this.seedInventory.getInvName() : I18n.getString(this.seedInventory.getInvName()), 8, 6, 4210752);
+        this.fontRenderer.drawString(this.playerInventory.isInvNameLocalized() ? this.playerInventory.getInvName() : I18n.getString(this.playerInventory.getInvName()), 8, this.ySize - 94, 4210752);
     }
 
     @Override
