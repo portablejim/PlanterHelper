@@ -19,6 +19,7 @@ package portablejim.planterhelper.core;
 
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
@@ -39,9 +40,10 @@ public class VeinPlanterInstance {
     private boolean finished;
     private Planter usedPlanter;
     private SeedInventory inventory;
+    private EntityPlayer player;
     private Point initialBlock;
 
-    public VeinPlanterInstance(IInventory inventory, Planter usedPlanter, World world, int x, int y, int z, ForgeDirection direction) {
+    public VeinPlanterInstance(EntityPlayer player, IInventory inventory, Planter usedPlanter, World world, int x, int y, int z, ForgeDirection direction) {
         this.plantQueue = new ConcurrentLinkedQueue<Point>();
         this.world = world;
         this.direction = direction;
@@ -50,6 +52,7 @@ public class VeinPlanterInstance {
         if(inventory instanceof SeedInventory) {
             this.inventory = (SeedInventory) inventory;
         }
+        this.player = player;
         initialBlock = new Point(x, y, z);
 
         TickRegistry.registerTickHandler(new VeinTicker(this), Side.SERVER);

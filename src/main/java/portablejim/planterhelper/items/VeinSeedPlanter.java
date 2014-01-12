@@ -46,12 +46,12 @@ public class VeinSeedPlanter extends Planter {
     }
 
     @Override
-    public void plant(IInventory inv, World world, int startX, int startY, int startZ, int width, float playerRotation) {
+    public void plant(EntityPlayer player, IInventory inv, World world, int startX, int startY, int startZ, int width, float playerRotation) {
         int intFacing = MathHelper.floor_double((double) (playerRotation * 4.0F / 360.0F) + 0.5D) & 3;
         ForgeDirection[] directions = { ForgeDirection.SOUTH, ForgeDirection.WEST, ForgeDirection.NORTH, ForgeDirection.EAST };
         ForgeDirection direction = directions[intFacing];
         if(plantSeedInPlace(inv, world, startX, startY, startZ, direction)) {
-            VeinPlanterInstance instance = new VeinPlanterInstance(inv, this, world, startX, startY, startZ, direction);
+            VeinPlanterInstance instance = new VeinPlanterInstance(player, inv, this, world, startX, startY, startZ, direction);
             instance.plantField(startX, startY, startZ);
         }
     }

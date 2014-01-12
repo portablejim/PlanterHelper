@@ -80,7 +80,7 @@ public abstract class Planter extends Item{
         }
 
         if(canPlant(inventory, world, x, y, z, ForgeDirection.getOrientation(intDirection))) {
-            plant(inventory, world, x, y, z, this.range, player.rotationYaw);
+            plant(player, inventory, world, x, y, z, this.range, player.rotationYaw);
         }
 
         return true;
@@ -124,7 +124,7 @@ public abstract class Planter extends Item{
     /*
      * Overridden in Vein
      */
-    public void plant(IInventory inv, World world, int startX, int startY, int startZ, int width, float playerRotation) {
+    public void plant(EntityPlayer player, IInventory inv, World world, int startX, int startY, int startZ, int width, float playerRotation) {
         int startCornerX;
         int startCornerZ;
 
