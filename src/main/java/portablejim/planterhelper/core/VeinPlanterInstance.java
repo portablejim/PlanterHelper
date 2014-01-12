@@ -84,9 +84,16 @@ public class VeinPlanterInstance {
                         continue;
                     }
 
+                    if(player.getFoodStats().getFoodLevel() < 2) {
+                        player.addChatMessage("PlanterHelper:TooHungry");
+                        finished = true;
+                        return;
+                    }
+
                     if(usedPlanter.canPlant(inventory, world, blockPos.getX(), blockPos.getY(), blockPos.getZ(), direction)) {
                         boolean success = usedPlanter.plantSeedInPlace(inventory, world, blockPos.getX(), blockPos.getY(), blockPos.getZ(), direction);
                         if(success) {
+                            player.addExhaustion(0.02F);
                             plantQueue.add(blockPos);
                         }
 
@@ -102,7 +109,13 @@ public class VeinPlanterInstance {
     public void plantScheduled() {
         int speed = PlanterHelper.instance.configValues.VEIN_SPEED;
         for(int i = 0; i < speed; i++) {
-            if(!plantQueue.isEmpty()) {
+            if(!plantQueue.isEmpty() && !this.finished) {
+                if(player.getFoodStats().getFoodLevel() < 2) {
+                    player.addChatMessage("PlanterHelper:TooHungry");
+                    finished = true;
+                    return;
+                }
+
                 Point target = plantQueue.remove();
                 plantField(target.getX(), target.getY(), target.getZ());
             }

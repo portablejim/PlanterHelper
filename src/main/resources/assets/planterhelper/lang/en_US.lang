@@ -8,3 +8,6 @@ item.PlanterHelper:dragonEggToken.name=Dragon Egg Token
 item.PlanterHelper:veinSeedPlanter.info1=Now in MANgenta
 item.PlanterHelper:dragonEggToken.info1=In case you wanted your egg back.
 
+# Messages
+PlanterHelper:TooHungry=You are too hungry to use this.
+
