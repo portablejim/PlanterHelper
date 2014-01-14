@@ -70,6 +70,8 @@ public class SeedPlanterGui extends GuiContainer {
 
     //@Override
     protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {
+        this.width = this.field_146294_l;
+        this.height = this.field_146295_m;
         // GUI Color
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 

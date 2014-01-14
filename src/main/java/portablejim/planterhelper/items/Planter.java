@@ -59,10 +59,7 @@ public abstract class Planter extends Item{
     public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
 
         if(hasGui && par3EntityPlayer.isSneaking()) {
-            if(!par2World.isRemote) {
-                //inventory.loadFromNBT(par1ItemStack);
-                par3EntityPlayer.openGui(PlanterHelper.instance, 0, par2World, 0, 0, 0);
-            }
+            par3EntityPlayer.openGui(PlanterHelper.instance, 0, par2World, 0, 0, 0);
         }
 
         return par1ItemStack;

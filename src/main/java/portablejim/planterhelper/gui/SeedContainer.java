@@ -69,7 +69,7 @@ public class SeedContainer extends Container {
 
     @Override
     public void onContainerClosed(EntityPlayer player) {
-        //inv.saveToNBT(player.getCurrentEquippedItem());
+        inv.saveToNBT(player.getCurrentEquippedItem().getTagCompound());
         //inv.clearInventory();
     }
 

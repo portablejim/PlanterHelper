@@ -17,11 +17,9 @@
 
 package portablejim.planterhelper;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.event.FMLServerStartedEvent;
+import cpw.mods.fml.common.event.*;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
@@ -143,6 +141,7 @@ public class PlanterHelper {
 
         GameRegistry.addShapelessRecipe(new ItemStack(Blocks.dragon_egg), eggToken);
 
+        FMLCommonHandler.instance().bus().register(this);
 
         MinecraftForge.EVENT_BUS.register(this);
     }
@@ -152,7 +151,8 @@ public class PlanterHelper {
         HashMap<String, Integer> itemsList = new HashMap<String, Integer>();
         GameData.itemRegistry.serializeInto(itemsList);
         for(String itemName : itemsList.keySet()) {
-            Item item = GameData.itemRegistry.get(itemName);
+            String itemProperName = itemName.startsWith("\u0002") ? itemName.substring(1) : itemName;
+            Item item = GameData.itemRegistry.get(itemProperName);
             if(item != null && item instanceof ItemHoe) {
                 OreDictionary.registerOre("hoe", new ItemStack(item, 1, OreDictionary.WILDCARD_VALUE));
             }
@@ -187,7 +187,7 @@ public class PlanterHelper {
             ItemStack itemInSlot = iInventory.getStackInSlot(i);
 
             if(itemInSlot == null) continue;
-            if(dirtItemStack.isItemEqual(itemStack)) countDirt++;
+            if(dirtItemStack.isItemEqual(itemInSlot)) countDirt++;
             if(itemInSlot.getItem() instanceof ItemHoe) {
                 countHoe++;
                 hoeSlot = i;

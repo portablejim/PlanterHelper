@@ -175,7 +175,7 @@ public class SeedInventory implements IInventory {
     }
 
     public void loadFromNBT(NBTTagCompound tagCompound) {
-        final int NBT_TAGLIST = 9;
+        final int NBT_TAGLIST = 10;
         NBTTagList tagList = tagCompound.func_150295_c("ItemsPlanterHelper", NBT_TAGLIST);
 
         for(int i = 0; i < tagList.tagCount(); i++) {

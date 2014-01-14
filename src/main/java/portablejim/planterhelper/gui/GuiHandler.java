@@ -17,9 +17,11 @@
 
 package portablejim.planterhelper.gui;
 
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
 import portablejim.planterhelper.PlanterHelper;
@@ -52,6 +54,7 @@ public class GuiHandler implements IGuiHandler {
                     return new SeedContainer(entityPlayer.inventory, new SeedInventory(entityPlayer.getHeldItem()));
                 }
             default:
+                FMLLog.severe("GUI SERVER WRONG GUI: %d", i);
                 return null;
         }
     }
@@ -73,6 +76,7 @@ public class GuiHandler implements IGuiHandler {
                     return new SeedPlanterGui(entityPlayer.inventory, new SeedInventory(entityPlayer.getHeldItem()));
                 }
             default:
+                FMLLog.severe("GUI CLIENT WRONG GUI: %d", i);
                 return null;
         }
     }
