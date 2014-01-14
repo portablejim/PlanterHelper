@@ -31,6 +31,10 @@ public class SeedPlanterGui extends GuiContainer {
     private static final ResourceLocation background = new ResourceLocation("textures/gui/container/generic_54.png");
 
     private int rows;
+    private int xSize;
+    private int ySize;
+    private int width;
+    private int height;
 
     InventoryPlayer playerInventory;
     SeedInventory seedInventory;
@@ -41,6 +45,11 @@ public class SeedPlanterGui extends GuiContainer {
         this.playerInventory = playerInv;
         this.seedInventory = itemInv;
 
+        this.width = this.field_146294_l;
+        this.height = this.field_146295_m;
+        this.xSize = this.field_146999_f;
+        this.ySize = this.field_147000_g;
+
         int i = 222;
         int j = i - 108;
         this.rows = itemInv.getSizeInventory() / 9;
@@ -48,21 +57,32 @@ public class SeedPlanterGui extends GuiContainer {
         this.ySize = (j + this.rows * 18);
     }
 
-    public void drawGuiContainerForegroundLayer(int par1, int par2) {
+    /*public void drawGuiContainerForegroundLayer(int par1, int par2) {
         this.fontRenderer.drawString(this.seedInventory.isInvNameLocalized() ? this.seedInventory.getInvName() : I18n.getString(this.seedInventory.getInvName()), 8, 6, 4210752);
         this.fontRenderer.drawString(this.playerInventory.isInvNameLocalized() ? this.playerInventory.getInvName() : I18n.getString(this.playerInventory.getInvName()), 8, this.ySize - 94, 4210752);
-    }
+    }*/
 
     @Override
+    protected void func_146979_b(int p_146979_1_, int p_146979_2_) {
+        this.field_146289_q.drawString(this.seedInventory.func_145818_k_() ? this.seedInventory.func_145825_b() : I18n.getStringParams(this.seedInventory.func_145825_b(), new Object[0]), 8, 6, 4210752);
+        this.field_146289_q.drawString(this.playerInventory.func_145818_k_() ? this.playerInventory.func_145825_b() : I18n.getStringParams(this.playerInventory.func_145825_b(), new Object[0]), 8, this.ySize - 94, 4210752);
+    }
+
+    //@Override
     protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {
         // GUI Color
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
-        this.mc.getTextureManager().bindTexture(background);
+        this.field_146297_k.getTextureManager().bindTexture(background);
 
         int i = (this.width - this.xSize) / 2;
         int j = (this.height - this.ySize) / 2;
         drawTexturedModalRect(i, j, 0, 0, this.xSize, this.rows * 18 + 17);
         drawTexturedModalRect(i, j + this.rows * 18 + 17, 0, 126, this.xSize, 96);
+    }
+
+    @Override
+    protected void func_146976_a(float var1, int var2, int var3) {
+        drawGuiContainerBackgroundLayer(var1, var2, var3);
     }
 }

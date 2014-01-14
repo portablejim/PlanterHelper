@@ -21,8 +21,8 @@ import net.minecraft.block.Block;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.common.util.ForgeDirection;
 
 /**
  * Methods for planting seeds useful in multiple places.
@@ -58,38 +58,26 @@ public class PlantingLogic {
 
         IPlantable plantable = (IPlantable) currentItem.getItem();
 
-        int blockId = world.getBlockId(x, y, z);
-        if(blockId > Block.blocksList.length - 1) {
-            return false;
-        }
-        if(Block.blocksList[blockId] == null || !Block.blocksList[blockId].canSustainPlant(world, x, y, z, direction, plantable)) {
+        Block targetBlock = world.func_147439_a(x, y, z);
+        if(targetBlock == null || !targetBlock.canSustainPlant(world, x, y, z, direction, plantable)) {
             return false;
         }
 
-        if(!world.isAirBlock(x, y + 1, z)) {
+        if(!world.func_147437_c(x, y + 1, z)) {
             return false;
         }
 
-        int plantId = plantable.getPlantID(world, x, y + 1, z);
+        Block plantablePlant = plantable.getPlant(world, x, y + 1, z);
         int plantMeta = plantable.getPlantMetadata(world, x, y + 1, z);
 
-        world.setBlock(x, y + 1, z, plantId, plantMeta, 3);
+        world.func_147465_d(x, y + 1, z, plantablePlant, plantMeta, 3);
 
         return true;
     }
 
     public static boolean targetedSuitableFarmland(World world, int x, int y, int z, ForgeDirection direction, IPlantable plantable) {
-        int blockId = world.getBlockId(x, y, z);
+        Block block = world.func_147439_a(x, y, z);
 
-        if(blockId > Block.blocksList.length - 1) {
-            return false;
-        }
-
-        //noinspection SimplifiableIfStatement
-        if(Block.blocksList[blockId] == null) {
-            return false;
-        }
-
-        return Block.blocksList[blockId].canSustainPlant(world, x, y, z, direction, plantable);
+        return block != null && block.canSustainPlant(world, x, y, z, direction, plantable);
     }
 }

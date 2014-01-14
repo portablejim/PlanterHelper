@@ -26,8 +26,8 @@ import net.minecraft.inventory.IInventory;
  */
 public class BasicSeedPlanter extends Planter {
 
-    public BasicSeedPlanter(int itemId) {
-        super(itemId, 0, 3);
+    public BasicSeedPlanter() {
+        super(0, 3);
         this.setUnlocalizedName("PlanterHelper:basicSeedPlanter");
         this.setTextureName("PlanterHelper:basicSeedPlanter");
     }

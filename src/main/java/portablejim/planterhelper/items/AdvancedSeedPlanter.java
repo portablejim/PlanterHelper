@@ -24,8 +24,8 @@ import portablejim.planterhelper.PlanterHelper;
  * sized area (9x9)
  */
 public class AdvancedSeedPlanter extends Planter {
-    public AdvancedSeedPlanter(int par1) {
-        super(par1, 27, 9);
+    public AdvancedSeedPlanter() {
+        super(27, 9);
         this.setUnlocalizedName("PlanterHelper:advancedSeedPlanter");
         this.setTextureName("PlanterHelper:advancedSeedPlanter");
         this.setContainerItem(PlanterHelper.eggToken);

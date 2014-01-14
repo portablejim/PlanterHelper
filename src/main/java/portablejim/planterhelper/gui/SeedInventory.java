@@ -20,6 +20,7 @@ package portablejim.planterhelper.gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.IPlantable;
@@ -117,11 +118,23 @@ public class SeedInventory implements IInventory {
     }
 
     @Override
+    public String func_145825_b() {
+        // Temp function until MCP names get fixed up.
+        return getInvName();
+    }
+
+    @Override
+    public boolean func_145818_k_() {
+        // Temp function until MCP names get fixed up.
+        return isInvNameLocalized();
+    }
+
+    //@Override
     public String getInvName() {
         return "Planter";
     }
 
-    @Override
+    //@Override
     public boolean isInvNameLocalized() {
         return false;
     }
@@ -162,10 +175,11 @@ public class SeedInventory implements IInventory {
     }
 
     public void loadFromNBT(NBTTagCompound tagCompound) {
-        NBTTagList tagList = tagCompound.getTagList("ItemsPlanterHelper");
+        final int NBT_TAGLIST = 9;
+        NBTTagList tagList = tagCompound.func_150295_c("ItemsPlanterHelper", NBT_TAGLIST);
 
         for(int i = 0; i < tagList.tagCount(); i++) {
-            NBTTagCompound itemTag = (NBTTagCompound) tagList.tagAt(i);
+            NBTTagCompound itemTag = tagList.func_150305_b(i);
             int slot = itemTag.getInteger("SlotPlanterHelper");
 
             if(slot >= 0 && slot < getSizeInventory()) {

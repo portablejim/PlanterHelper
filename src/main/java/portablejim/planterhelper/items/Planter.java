@@ -24,8 +24,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.common.util.ForgeDirection;
 import portablejim.planterhelper.PlanterHelper;
 import portablejim.planterhelper.core.PlantingLogic;
 import portablejim.planterhelper.gui.SeedInventory;
@@ -38,8 +38,8 @@ public abstract class Planter extends Item{
     protected int invSlots;
     protected int range;
 
-    public Planter(int itemId, int guiSlots, int range) {
-        super(itemId);
+    public Planter(int guiSlots, int range) {
+        super();
         this.setMaxStackSize(1);
         this.setCreativeTab(CreativeTabs.tabTools);
 

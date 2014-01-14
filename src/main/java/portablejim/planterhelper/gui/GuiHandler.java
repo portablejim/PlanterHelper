@@ -32,7 +32,7 @@ import portablejim.planterhelper.items.VeinSeedPlanter;
  */
 public class GuiHandler implements IGuiHandler {
     public GuiHandler() {
-        NetworkRegistry.instance().registerGuiHandler(PlanterHelper.instance, this);
+        NetworkRegistry.INSTANCE.registerGuiHandler(PlanterHelper.instance, this);
     }
 
     @Override

@@ -17,12 +17,14 @@
 
 package portablejim.planterhelper.core;
 
-import cpw.mods.fml.common.registry.TickRegistry;
-import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import portablejim.planterhelper.PlanterHelper;
 import portablejim.planterhelper.gui.SeedInventory;
 import portablejim.planterhelper.items.Planter;
@@ -55,7 +57,15 @@ public class VeinPlanterInstance {
         this.player = player;
         initialBlock = new Point(x, y, z);
 
-        TickRegistry.registerTickHandler(new VeinTicker(this), Side.SERVER);
+        FMLCommonHandler.instance().bus().register(this);
+    }
+
+    @SuppressWarnings("UnusedDeclaration")
+    @SubscribeEvent
+    public void ticker(TickEvent.ServerTickEvent event) {
+        if(event.phase == TickEvent.Phase.END) {
+            this.plantScheduled();
+        }
     }
 
     public synchronized void plantField(int x, int y, int z) {
@@ -85,7 +95,7 @@ public class VeinPlanterInstance {
                     }
 
                     if(player.getFoodStats().getFoodLevel() < 2) {
-                        player.addChatMessage("PlanterHelper:TooHungry");
+                        player.func_146105_b(new ChatComponentTranslation("PlanterHelper:TooHungry"));
                         finished = true;
                         return;
                     }
@@ -111,7 +121,7 @@ public class VeinPlanterInstance {
         for(int i = 0; i < speed; i++) {
             if(!plantQueue.isEmpty() && !this.finished) {
                 if(player.getFoodStats().getFoodLevel() < 2) {
-                    player.addChatMessage("PlanterHelper:TooHungry");
+                    player.func_146105_b(new ChatComponentTranslation("PlanterHelper:TooHungry"));
                     finished = true;
                     return;
                 }
