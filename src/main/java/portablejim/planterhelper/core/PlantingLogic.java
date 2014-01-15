@@ -29,7 +29,9 @@ import net.minecraftforge.common.IPlantable;
  */
 public class PlantingLogic {
     public static int getSeedsSlot(IInventory inv, int initialSlot) {
-        initialSlot = initialSlot < 0 ? 0 : initialSlot;
+        if(initialSlot < 0) {
+            return -1;
+        }
 
         ItemStack initialTarget = inv.getStackInSlot(initialSlot);
 

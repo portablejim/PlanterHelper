@@ -20,6 +20,8 @@ package portablejim.planterhelper.items;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.IPlantable;
 
 /**
  * Tier 1 planter without an inventory. Plants a small area (3x3).
@@ -51,10 +53,12 @@ public class BasicSeedPlanter extends Planter {
                 targetItemNum = inventoryPlayer.currentItem + 1;
             }
 
-            return targetItemNum;
+            ItemStack resultItem = inventory.getStackInSlot(targetItemNum);
+
+            return resultItem != null && resultItem.getItem() instanceof IPlantable ? targetItemNum : -1;
         }
         else {
-            return -1;
+            return super.getFirstSlot(inventory);
         }
     }
 }
