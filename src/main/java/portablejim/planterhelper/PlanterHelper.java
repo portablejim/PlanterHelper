@@ -174,7 +174,7 @@ public class PlanterHelper {
         easterEggUsers.add("portablejim");
         easterEggUsers.add("straymaverick");
 
-        if(entity instanceof EntityPlayer && easterEggUsers.contains(((EntityPlayer) entity).username.toLowerCase())) {
+        if(entity instanceof EntityPlayer && (easterEggUsers.contains(((EntityPlayer) entity).username.toLowerCase()) || this.configValues.EASTER_EGG_SHARE)) {
             EntityPlayer player = (EntityPlayer) entity;
             for(int i = 0; i < HOTBAR_SIZE; i++) {
                 ItemStack item = player.inventory.getStackInSlot(i);
