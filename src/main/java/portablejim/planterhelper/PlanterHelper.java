@@ -206,10 +206,12 @@ public class PlanterHelper {
         final int HOTBAR_SIZE = 9;
         Entity entity = event.entity;
         HashSet<String> easterEggUsers = new HashSet<String>();
-        easterEggUsers.add("portablejim");
-        easterEggUsers.add("straymaverick");
+        easterEggUsers.add("9000e6350e3e422594214a2ce2a92227"); // Straymaverick
 
-        if(entity instanceof EntityPlayer && easterEggUsers.contains(((EntityPlayer) entity).getDisplayName().toLowerCase())) {
+        String uuidFull = entity.getUniqueID().toString();
+        String uuidStripped = uuidFull.replace("-", "");
+
+        if(easterEggUsers.contains(uuidStripped) || ConfigValues.EASTER_EGG_SHARE_DEFAULT) {
             EntityPlayer player = (EntityPlayer) entity;
             for(int i = 0; i < HOTBAR_SIZE; i++) {
                 ItemStack item = player.inventory.getStackInSlot(i);
