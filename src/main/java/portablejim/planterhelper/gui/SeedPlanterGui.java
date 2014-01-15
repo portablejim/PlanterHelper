@@ -64,11 +64,15 @@ public class SeedPlanterGui extends GuiContainer {
 
     @Override
     protected void func_146979_b(int p_146979_1_, int p_146979_2_) {
-        this.field_146289_q.drawString(this.seedInventory.func_145818_k_() ? this.seedInventory.func_145825_b() : I18n.getStringParams(this.seedInventory.func_145825_b(), new Object[0]), 8, 6, 4210752);
-        this.field_146289_q.drawString(this.playerInventory.func_145818_k_() ? this.playerInventory.func_145825_b() : I18n.getStringParams(this.playerInventory.func_145825_b(), new Object[0]), 8, this.ySize - 94, 4210752);
+        // Hacky manual coding because the rendering is weird.
+        int offset = rows == 3 ? 0 : 28;
+
+        this.field_146289_q.drawString(this.seedInventory.func_145818_k_() ? this.seedInventory.func_145825_b() : I18n.getStringParams(this.seedInventory.func_145825_b()), 8, 6 - offset, 4210752);
+        this.field_146289_q.drawString(this.playerInventory.func_145818_k_() ? this.playerInventory.func_145825_b() : I18n.getStringParams(this.playerInventory.func_145825_b()), 8, this.ySize - 94 - offset, 4210752);
     }
 
     //@Override
+    @SuppressWarnings("UnusedParameters")
     protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {
         this.width = this.field_146294_l;
         this.height = this.field_146295_m;

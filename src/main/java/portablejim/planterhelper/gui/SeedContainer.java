@@ -33,35 +33,37 @@ import portablejim.planterhelper.gui.util.SeedSlot;
 @ChestContainer
 public class SeedContainer extends Container {
     private SeedInventory inv;
-    private int rows;
 
     public SeedContainer(InventoryPlayer player, SeedInventory inventory) {
         this.inv = inventory;
-        rows = this.inv.getSizeInventory() / 9;
+        int rows = this.inv.getSizeInventory() / 9;
 
-        int invHeightPx = (this.rows - 4) * 18;
+        int invHeightPx = (rows - 4) * 18;
 
         int invRow;
         int invColumn;
 
-        for(invRow = 0; invRow < this.rows; invRow++) {
+        // Hacky manual coding because the rendering is weird.
+        int offset = rows == 3 ? 1 : 28;
+
+        for(invRow = 0; invRow < rows; invRow++) {
             for(invColumn = 0; invColumn < 9; invColumn++) {
-                this.addSlotToContainer(new SeedSlot(inventory, invColumn + invRow * 9, 8 + invColumn * 18, 18 + invRow * 18));
+                this.addSlotToContainer(new SeedSlot(inventory, invColumn + invRow * 9, 8 + invColumn * 18, 18 + invRow * 18 - offset));
             }
         }
 
         for(invRow = 0; invRow < 3; invRow++) {
             for(invColumn = 0; invColumn < 9; invColumn++) {
-                this.addSlotToContainer(new Slot(player, invColumn + invRow * 9 + 9, 8 + invColumn * 18, 103 + invRow * 18 + invHeightPx));
+                this.addSlotToContainer(new Slot(player, invColumn + invRow * 9 + 9, 8 + invColumn * 18, 102 + invRow * 18 + invHeightPx - offset + 1));
             }
         }
 
         for(invColumn = 0; invColumn < 9; invColumn++) {
             if(invColumn == player.currentItem) {
-                this.addSlotToContainer(new DisabledSlot(player, invColumn, 8 + invColumn * 18, 161 + invHeightPx));
+                this.addSlotToContainer(new DisabledSlot(player, invColumn, 8 + invColumn * 18, 161 + invHeightPx - offset));
             }
             else {
-                this.addSlotToContainer(new Slot(player, invColumn, 8 + invColumn * 18, 161 + invHeightPx));
+                this.addSlotToContainer(new Slot(player, invColumn, 8 + invColumn * 18, 161 + invHeightPx - offset));
             }
         }
 
