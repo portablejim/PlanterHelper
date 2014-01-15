@@ -209,7 +209,7 @@ public class PlanterHelper {
     }
 
     @SuppressWarnings("UnusedDeclaration")
-    @EventHandler
+    @SubscribeEvent
     public void lightningStrike(EntityStruckByLightningEvent event) {
         final int HOTBAR_SIZE = 9;
         Entity entity = event.entity;
