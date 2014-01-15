@@ -1,5 +1,7 @@
-0.5 [1.7.2]
+0.4.1 [1.7.2]
 ---
+
+* Fix crash with Basic Planter not having seeds available.
 
 0.4 [1.7.2]
 ---
