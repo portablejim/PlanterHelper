@@ -19,10 +19,12 @@ package portablejim.planterhelper;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.event.*;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStartedEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.registry.GameData;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.command.ServerCommandManager;
@@ -50,7 +52,8 @@ import portablejim.planterhelper.items.VeinSeedPlanter;
 import java.util.HashMap;
 import java.util.HashSet;
 
-import static cpw.mods.fml.common.Mod.*;
+import static cpw.mods.fml.common.Mod.EventHandler;
+import static cpw.mods.fml.common.Mod.Instance;
 
 /**
  * Mod that helps with planting crops
@@ -73,6 +76,7 @@ public class PlanterHelper {
     public static VeinSeedPlanter veinPlanter;
     public static DragonEggToken eggToken;
 
+    @SuppressWarnings("UnusedDeclaration")
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         configValues = new ConfigValues(event.getSuggestedConfigurationFile());
@@ -90,7 +94,7 @@ public class PlanterHelper {
     }
 
     @EventHandler
-    public void init(FMLInitializationEvent event) {
+    public void init(@SuppressWarnings("UnusedParameters") FMLInitializationEvent event) {
         ItemStack hoeStack = new ItemStack(Items.iron_hoe);
         ItemStack dispenserStack = new ItemStack(Blocks.dispenser);
 
@@ -146,6 +150,7 @@ public class PlanterHelper {
         MinecraftForge.EVENT_BUS.register(this);
     }
 
+    @SuppressWarnings("UnusedDeclaration")
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         HashMap<String, Integer> itemsList = new HashMap<String, Integer>();
@@ -164,12 +169,14 @@ public class PlanterHelper {
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Blocks.farmland), Blocks.dirt, "hoe"));
     }
 
+    @SuppressWarnings("UnusedDeclaration")
     @EventHandler
     public void serverStarted(FMLServerStartedEvent event) {
         ServerCommandManager scm = (ServerCommandManager) MinecraftServer.getServer().getCommandManager();
         scm.registerCommand(new CommandSmiteMe());
     }
 
+    @SuppressWarnings("UnusedDeclaration")
     @SubscribeEvent
     public void craftingFarmland(PlayerEvent.ItemCraftedEvent event) {
         ItemStack farmlandItemStack = new ItemStack(Blocks.farmland);
@@ -201,6 +208,7 @@ public class PlanterHelper {
         }
     }
 
+    @SuppressWarnings("UnusedDeclaration")
     @EventHandler
     public void lightningStrike(EntityStruckByLightningEvent event) {
         final int HOTBAR_SIZE = 9;
@@ -211,7 +219,7 @@ public class PlanterHelper {
         String uuidFull = entity.getUniqueID().toString();
         String uuidStripped = uuidFull.replace("-", "");
 
-        if(easterEggUsers.contains(uuidStripped) || ConfigValues.EASTER_EGG_SHARE_DEFAULT) {
+        if(easterEggUsers.contains(uuidStripped) || this.configValues.EASTER_EGG_SHARE) {
             EntityPlayer player = (EntityPlayer) entity;
             for(int i = 0; i < HOTBAR_SIZE; i++) {
                 ItemStack item = player.inventory.getStackInSlot(i);
