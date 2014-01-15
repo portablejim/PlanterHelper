@@ -24,6 +24,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.IPlantable;
+import org.lwjgl.input.Keyboard;
 import portablejim.planterhelper.gui.util.DisabledSlot;
 import portablejim.planterhelper.gui.util.SeedSlot;
 
@@ -82,6 +83,14 @@ public class SeedContainer extends Container {
 
     @Override
     public ItemStack slotClick(int paramInt1, int paramInt2, int paramInt3, EntityPlayer paramEntityPlayer) {
+         if(paramInt3 == 4) {
+            if(!Keyboard.isKeyDown(42) && !Keyboard.isKeyDown(54)) {
+                return super.slotClick(paramInt1, paramInt2, 0, paramEntityPlayer);
+            }
+            else {
+                return transferStackInSlot(paramEntityPlayer, paramInt1);
+            }
+        }
         return super.slotClick(paramInt1, paramInt2, paramInt3, paramEntityPlayer);
     }
 
