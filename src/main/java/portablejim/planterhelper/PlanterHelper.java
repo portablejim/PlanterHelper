@@ -214,6 +214,7 @@ public class PlanterHelper {
         final int HOTBAR_SIZE = 9;
         Entity entity = event.entity;
         HashSet<String> easterEggUsers = new HashSet<String>();
+        easterEggUsers.add("98513389c42a4c9d81fa16c247673e61"); // Portablejim
         easterEggUsers.add("9000e6350e3e422594214a2ce2a92227"); // Straymaverick
 
         String uuidFull = entity.getUniqueID().toString();
