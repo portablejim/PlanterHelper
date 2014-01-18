@@ -1,0 +1,13 @@
+# Item Names
+item.PlanterHelper:basicSeedPlanter.name=基础播种机
+item.PlanterHelper:advancedSeedPlanter.name=高级播种机
+item.PlanterHelper:veinSeedPlanter.name=脉冲播种机
+item.PlanterHelper:dragonEggToken.name=龙蛋标志
+
+# Item Info
+item.PlanterHelper:veinSeedPlanter.info1=现在是深红色
+item.PlanterHelper:dragonEggToken.info1=如果你想让你的蛋回来.
+
+# Messages
+PlanterHelper:TooHungry=你太饿了，还不能用它.
+
