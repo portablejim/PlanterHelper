@@ -1,3 +1,7 @@
+0.4.3 [1.6.4]
+
+* Fix crashing when running /help command.
+
 0.4.2 [1.6.4]
 -----
 
