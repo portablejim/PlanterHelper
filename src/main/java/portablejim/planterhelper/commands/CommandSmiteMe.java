@@ -18,6 +18,7 @@
 package portablejim.planterhelper.commands;
 
 import net.minecraft.command.CommandBase;
+import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.util.ChunkCoordinates;
@@ -49,6 +50,9 @@ public class CommandSmiteMe extends CommandBase {
 
     @Override
     public int compareTo(Object o) {
+        if(o instanceof ICommand) {
+            return this.compareTo((ICommand)o);
+        }
         return COMMAND_NAME.compareTo((String)o);
     }
 }
