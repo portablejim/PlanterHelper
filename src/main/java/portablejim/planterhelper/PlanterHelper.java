@@ -87,10 +87,10 @@ public class PlanterHelper {
         advancedPlanter = new AdvancedSeedPlanter();
         veinPlanter = new VeinSeedPlanter();
 
-        GameRegistry.registerItem(eggToken, "PlanterHelper:dragonEggToken");
-        GameRegistry.registerItem(basicPlanter, "PlanterHelper:basicPlanter");
-        GameRegistry.registerItem(advancedPlanter, "PlanterHelper:advancedPlanter");
-        GameRegistry.registerItem(veinPlanter, "PlanterHelper:veinPlanter");
+        GameRegistry.registerItem(eggToken, "dragonEggToken");
+        GameRegistry.registerItem(basicPlanter, "basicPlanter");
+        GameRegistry.registerItem(advancedPlanter, "advancedPlanter");
+        GameRegistry.registerItem(veinPlanter, "veinPlanter");
     }
 
     @EventHandler
