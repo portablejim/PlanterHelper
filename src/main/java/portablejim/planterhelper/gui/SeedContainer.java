@@ -44,27 +44,24 @@ public class SeedContainer extends Container {
         int invRow;
         int invColumn;
 
-        // Hacky manual coding because the rendering is weird.
-        int offset = rows == 3 ? 1 : 28;
-
         for(invRow = 0; invRow < rows; invRow++) {
             for(invColumn = 0; invColumn < 9; invColumn++) {
-                this.addSlotToContainer(new SeedSlot(inventory, invColumn + invRow * 9, 8 + invColumn * 18, 18 + invRow * 18 - offset));
+                this.addSlotToContainer(new SeedSlot(inventory, invColumn + invRow * 9, 8 + invColumn * 18, 18 + invRow * 18));
             }
         }
 
         for(invRow = 0; invRow < 3; invRow++) {
             for(invColumn = 0; invColumn < 9; invColumn++) {
-                this.addSlotToContainer(new Slot(player, invColumn + invRow * 9 + 9, 8 + invColumn * 18, 102 + invRow * 18 + invHeightPx - offset + 1));
+                this.addSlotToContainer(new Slot(player, invColumn + invRow * 9 + 9, 8 + invColumn * 18, 102 + invRow * 18 + invHeightPx + 1));
             }
         }
 
         for(invColumn = 0; invColumn < 9; invColumn++) {
             if(invColumn == player.currentItem) {
-                this.addSlotToContainer(new DisabledSlot(player, invColumn, 8 + invColumn * 18, 161 + invHeightPx - offset));
+                this.addSlotToContainer(new DisabledSlot(player, invColumn, 8 + invColumn * 18, 161 + invHeightPx));
             }
             else {
-                this.addSlotToContainer(new Slot(player, invColumn, 8 + invColumn * 18, 161 + invHeightPx - offset));
+                this.addSlotToContainer(new Slot(player, invColumn, 8 + invColumn * 18, 161 + invHeightPx));
             }
         }
 

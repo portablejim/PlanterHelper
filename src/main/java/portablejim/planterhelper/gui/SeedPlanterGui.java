@@ -48,18 +48,10 @@ public class SeedPlanterGui extends GuiContainer {
         this.ySize = (j + this.rows * 18);
     }
 
-    /*public void drawGuiContainerForegroundLayer(int par1, int par2) {
-        this.fontRenderer.drawString(this.seedInventory.isInvNameLocalized() ? this.seedInventory.getInvName() : I18n.getString(this.seedInventory.getInvName()), 8, 6, 4210752);
-        this.fontRenderer.drawString(this.playerInventory.isInvNameLocalized() ? this.playerInventory.getInvName() : I18n.getString(this.playerInventory.getInvName()), 8, this.ySize - 94, 4210752);
-    }*/
-
     @Override
-    protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
-        // Hacky manual coding because the rendering is weird.
-        int offset = rows == 3 ? 0 : 28;
-
-        this.fontRendererObj.drawString(this.seedInventory.hasCustomInventoryName() ? this.seedInventory.getInventoryName() : I18n.format(this.seedInventory.getInventoryName()), 8, 6 - offset, 4210752);
-        this.fontRendererObj.drawString(this.playerInventory.hasCustomInventoryName() ? this.playerInventory.getInventoryName() : I18n.format(this.playerInventory.getInventoryName()), 8, this.ySize - 94 - offset, 4210752);
+    protected void drawGuiContainerForegroundLayer(int par1, int par2) {
+        this.fontRendererObj.drawString(this.seedInventory.hasCustomInventoryName() ? this.seedInventory.getInventoryName() : I18n.format(this.seedInventory.getInventoryName()), 8, 6, 4210752);
+        this.fontRendererObj.drawString(this.playerInventory.hasCustomInventoryName() ? this.playerInventory.getInventoryName() : I18n.format(this.playerInventory.getInventoryName()), 8, this.ySize - 94, 4210752);
     }
 
     //@Override
