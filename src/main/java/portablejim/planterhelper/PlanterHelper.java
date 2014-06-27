@@ -17,38 +17,43 @@
 
 package portablejim.planterhelper;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartedEvent;
-import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent;
+import cpw.mods.fml.common.registry.GameData;
 import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraft.block.Block;
 import net.minecraft.command.ServerCommandManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import portablejim.planterhelper.commands.CommandSmiteMe;
 import portablejim.planterhelper.config.ConfigValues;
-import portablejim.planterhelper.core.FarmlandCraftingHandler;
 import portablejim.planterhelper.gui.GuiHandler;
 import portablejim.planterhelper.items.AdvancedSeedPlanter;
 import portablejim.planterhelper.items.BasicSeedPlanter;
 import portablejim.planterhelper.items.DragonEggToken;
 import portablejim.planterhelper.items.VeinSeedPlanter;
-import portablejim.planterhelper.network.PacketHandler;
+
+import java.util.HashMap;
 import java.util.HashSet;
 
-import static cpw.mods.fml.common.Mod.*;
+import static cpw.mods.fml.common.Mod.EventHandler;
+import static cpw.mods.fml.common.Mod.Instance;
 
 /**
  * Mod that helps with planting crops
@@ -57,7 +62,6 @@ import static cpw.mods.fml.common.Mod.*;
  */
 
 @Mod(modid = PlanterHelper.MODID, name = PlanterHelper.NAME)
-@NetworkMod(clientSideRequired = true, serverSideRequired = true, channels = {PlanterHelper.MODID}, packetHandler = PacketHandler.class)
 public class PlanterHelper {
     public static final String MODID = "PlanterHelper";
     public static final String NAME = "Planter Helper";
@@ -72,15 +76,16 @@ public class PlanterHelper {
     public static VeinSeedPlanter veinPlanter;
     public static DragonEggToken eggToken;
 
+    @SuppressWarnings("UnusedDeclaration")
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         configValues = new ConfigValues(event.getSuggestedConfigurationFile());
         configValues.loadConfigFile();
 
-        eggToken = new DragonEggToken(configValues.ITEMIDS_EGG_TOKEN);
-        basicPlanter = new BasicSeedPlanter(configValues.ITEMIDS_BASIC_PLANTER);
-        advancedPlanter = new AdvancedSeedPlanter(configValues.ITEMIDS_ADVANCED_PLANTER);
-        veinPlanter = new VeinSeedPlanter(configValues.ITEMIDS_VEIN_PLANTER);
+        eggToken = new DragonEggToken();
+        basicPlanter = new BasicSeedPlanter();
+        advancedPlanter = new AdvancedSeedPlanter();
+        veinPlanter = new VeinSeedPlanter();
 
         GameRegistry.registerItem(eggToken, "PlanterHelper:dragonEggToken");
         GameRegistry.registerItem(basicPlanter, "PlanterHelper:basicPlanter");
@@ -89,24 +94,24 @@ public class PlanterHelper {
     }
 
     @EventHandler
-    public void init(FMLInitializationEvent event) {
-        ItemStack hoeStack = new ItemStack(Item.hoeIron);
-        ItemStack dispenserStack = new ItemStack(Block.dispenser);
+    public void init(@SuppressWarnings("UnusedParameters") FMLInitializationEvent event) {
+        ItemStack hoeStack = new ItemStack(Items.iron_hoe);
+        ItemStack dispenserStack = new ItemStack(Blocks.dispenser);
 
         ItemStack basicPlanterStack = new ItemStack(basicPlanter);
-        ItemStack hopperStack = new ItemStack(Block.hopperBlock);
-        ItemStack diamondStack = new ItemStack(Item.diamond);
-        ItemStack blazeRodStack = new ItemStack(Item.blazeRod);
-        ItemStack pumpkinStack = new ItemStack(Block.pumpkin);
+        ItemStack hopperStack = new ItemStack(Blocks.hopper);
+        ItemStack diamondStack = new ItemStack(Items.diamond);
+        ItemStack blazeRodStack = new ItemStack(Items.blaze_rod);
+        ItemStack pumpkinStack = new ItemStack(Blocks.pumpkin);
 
-        ItemStack wheatStack = new ItemStack(Item.wheat);
-        ItemStack carrotStack = new ItemStack(Item.carrot);
-        ItemStack potatoStack = new ItemStack(Item.potato);
+        ItemStack wheatStack = new ItemStack(Items.wheat);
+        ItemStack carrotStack = new ItemStack(Items.carrot);
+        ItemStack potatoStack = new ItemStack(Items.potato);
 
-        ItemStack netherStarStack = new ItemStack(Item.netherStar);
-        ItemStack dragonEggStack = new ItemStack(Block.dragonEgg);
-        ItemStack chestStack = new ItemStack(Block.chest);
-        ItemStack clockStack = new ItemStack(Item.pocketSundial);
+        ItemStack netherStarStack = new ItemStack(Items.nether_star);
+        ItemStack dragonEggStack = new ItemStack(Blocks.dragon_egg);
+        ItemStack chestStack = new ItemStack(Blocks.chest);
+        ItemStack clockStack = new ItemStack(Items.clock);
 
         new GuiHandler();
 
@@ -138,17 +143,21 @@ public class PlanterHelper {
                 'd', dragonEggStack, 'a', advancedPlanter, 'l', clockStack,
                 'h', chestStack);
 
-        GameRegistry.addShapelessRecipe(new ItemStack(Block.dragonEgg), eggToken);
+        GameRegistry.addShapelessRecipe(new ItemStack(Blocks.dragon_egg), eggToken);
 
-
-        GameRegistry.registerCraftingHandler(new FarmlandCraftingHandler());
+        FMLCommonHandler.instance().bus().register(this);
 
         MinecraftForge.EVENT_BUS.register(this);
     }
 
+    @SuppressWarnings("UnusedDeclaration")
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-        for(Item item : Item.itemsList) {
+        HashMap<String, Integer> itemsList = new HashMap<String, Integer>();
+        GameData.getItemRegistry().serializeInto(itemsList);
+        for(String itemName : itemsList.keySet()) {
+            String itemProperName = itemName.startsWith("\u0002") ? itemName.substring(1) : itemName;
+            Item item = GameData.getItemRegistry().getObject(itemProperName);
             if(item != null && item instanceof ItemHoe) {
                 OreDictionary.registerOre("hoe", new ItemStack(item, 1, OreDictionary.WILDCARD_VALUE));
             }
@@ -157,24 +166,61 @@ public class PlanterHelper {
         /*
          * Misc Recipes
          */
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Block.tilledField), Block.dirt, "hoe"));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Blocks.farmland), Blocks.dirt, "hoe"));
     }
 
+    @SuppressWarnings("UnusedDeclaration")
     @EventHandler
     public void serverStarted(FMLServerStartedEvent event) {
         ServerCommandManager scm = (ServerCommandManager) MinecraftServer.getServer().getCommandManager();
         scm.registerCommand(new CommandSmiteMe());
     }
 
-    @ForgeSubscribe
+    @SuppressWarnings("UnusedDeclaration")
+    @SubscribeEvent
+    public void craftingFarmland(PlayerEvent.ItemCraftedEvent event) {
+        ItemStack farmlandItemStack = new ItemStack(Blocks.farmland);
+        ItemStack dirtItemStack = new ItemStack(Blocks.dirt);
+
+        ItemStack itemStack = event.crafting;
+        IInventory iInventory = event.craftMatrix;
+
+        int countDirt = 0;
+        int countHoe = 0;
+        boolean farmland = itemStack != null && farmlandItemStack.isItemEqual(itemStack);
+        int hoeSlot = -1;
+
+        for(int i = 0; i < iInventory.getSizeInventory(); i++) {
+            ItemStack itemInSlot = iInventory.getStackInSlot(i);
+
+            if(itemInSlot == null) continue;
+            if(dirtItemStack.isItemEqual(itemInSlot)) countDirt++;
+            if(itemInSlot.getItem() instanceof ItemHoe) {
+                countHoe++;
+                hoeSlot = i;
+            }
+        }
+
+        if(countDirt == 1 && countHoe == 1 && farmland) {
+            ItemStack hoe = iInventory.getStackInSlot(hoeSlot);
+            hoe.stackSize++;
+            hoe.damageItem(1, event.player);
+        }
+    }
+
+    @SuppressWarnings("UnusedDeclaration")
+    @SubscribeEvent
     public void lightningStrike(EntityStruckByLightningEvent event) {
         final int HOTBAR_SIZE = 9;
         Entity entity = event.entity;
         HashSet<String> easterEggUsers = new HashSet<String>();
-        easterEggUsers.add("portablejim");
-        easterEggUsers.add("straymaverick");
+        easterEggUsers.add("98513389c42a4c9d81fa16c247673e61"); // Portablejim
+        easterEggUsers.add("9000e6350e3e422594214a2ce2a92227"); // Straymaverick
 
-        if(entity instanceof EntityPlayer && (easterEggUsers.contains(((EntityPlayer) entity).username.toLowerCase()) || this.configValues.EASTER_EGG_SHARE)) {
+        String uuidFull = entity.getUniqueID().toString();
+        String uuidStripped = uuidFull.replace("-", "");
+
+        if(easterEggUsers.contains(uuidStripped) || this.configValues.EASTER_EGG_SHARE) {
             EntityPlayer player = (EntityPlayer) entity;
             for(int i = 0; i < HOTBAR_SIZE; i++) {
                 ItemStack item = player.inventory.getStackInSlot(i);

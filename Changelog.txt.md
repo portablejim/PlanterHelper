@@ -1,21 +1,31 @@
-0.4.3 [1.6.4]
+0.4.3 [1.7.2]
+-----
 
 * Fix crashing when running /help command.
 
-0.4.2 [1.6.4]
+0.4.2 [1.7.2]
 -----
 
 * Add Chinese language file.
 
-0.4.1 [1.6.4]
+0.4.1 [1.7.2]
 ---
 
 * Fix crash with Basic Planter not having seeds available.
 
+0.4 [1.7.2]
+---
+
+Initial release for 1.7.2
+* Update to 1.7.2
+* Fix easter egg config option not working.
+* Make easter egg use UUIDs instead of user names.
+=======
 0.4 [1.6.4]
 ---
 
 * Fix easter egg config option not working. 
+>>>>>>> origin/master
 
 0.3 [1.6.4]
 ---

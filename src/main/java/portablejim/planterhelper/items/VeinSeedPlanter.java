@@ -17,16 +17,17 @@
 
 package portablejim.planterhelper.items;
 
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import portablejim.planterhelper.PlanterHelper;
 import portablejim.planterhelper.core.VeinPlanterInstance;
 
@@ -38,10 +39,10 @@ import java.util.List;
  */
 public class VeinSeedPlanter extends Planter {
     public static final String[] ICONSTRING = { "veinSeedPlanter", "veinSeedPlanter_magenta" };
-    public static Icon[] icons;
+    public static IIcon[] icons;
 
-    public VeinSeedPlanter(int itemId) {
-        super(itemId, 54, -1);
+    public VeinSeedPlanter() {
+        super(54, -1);
         this.setUnlocalizedName("PlanterHelper:veinSeedPlanter");
     }
 
@@ -57,8 +58,8 @@ public class VeinSeedPlanter extends Planter {
     }
 
     @Override
-    public void registerIcons(IconRegister iconRegister) {
-        icons = new Icon[ICONSTRING.length];
+    public void registerIcons(IIconRegister iconRegister) {
+        icons = new IIcon[ICONSTRING.length];
 
         for(int i = 0; i < ICONSTRING.length; i++) {
             icons[i] = iconRegister.registerIcon(String.format("%s:%s", PlanterHelper.MODID, ICONSTRING[i]));
@@ -66,14 +67,14 @@ public class VeinSeedPlanter extends Planter {
     }
 
     @Override
-    public Icon getIconFromDamage(int damage) {
+    public IIcon getIconFromDamage(int damage) {
         return icons[damage];
     }
 
-    @Override
-    public void getSubItems(int id, CreativeTabs tab, List list) {
+    //@Override
+    public void getSubItems(Item item, CreativeTabs tab, List list) {
         for(int i = 0; i < icons.length; i++) {
-            ItemStack itemstack = new ItemStack(id, 1, i);
+            ItemStack itemstack = new ItemStack(item, 1, i);
             //noinspection unchecked
             list.add(itemstack);
         }
