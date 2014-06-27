@@ -82,11 +82,6 @@ public class VeinSeedPlanter extends Planter {
     }
 
     @Override
-    public void func_150895_a(Item item, CreativeTabs tab, List list) {
-        getSubItems(item, tab, list);
-    }
-
-    @Override
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
         if(par1ItemStack.getItemDamage() == 1) {
             //noinspection unchecked

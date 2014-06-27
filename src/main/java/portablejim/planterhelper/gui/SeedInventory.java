@@ -20,7 +20,6 @@ package portablejim.planterhelper.gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.IPlantable;
@@ -89,7 +88,7 @@ public class SeedInventory implements IInventory {
                 inventoryItems[index] = null;
             }
         }
-        onInventoryChanged();
+        markDirty();
 
         return output;
     }
@@ -114,28 +113,16 @@ public class SeedInventory implements IInventory {
             itemStack.stackSize = getInventoryStackLimit();
         }
 
-        onInventoryChanged();
+        markDirty();
     }
 
     @Override
-    public String func_145825_b() {
-        // Temp function until MCP names get fixed up.
-        return getInvName();
-    }
-
-    @Override
-    public boolean func_145818_k_() {
-        // Temp function until MCP names get fixed up.
-        return isInvNameLocalized();
-    }
-
-    //@Override
-    public String getInvName() {
+    public String getInventoryName() {
         return "Planter";
     }
 
-    //@Override
-    public boolean isInvNameLocalized() {
+    @Override
+    public boolean hasCustomInventoryName() {
         return false;
     }
 
@@ -145,7 +132,7 @@ public class SeedInventory implements IInventory {
     }
 
     @Override
-    public void onInventoryChanged() {
+    public void markDirty() {
         // Clear useless slots with an itemstack of size 0.
         for(int i = 0; i < getSizeInventory(); i++) {
             if(getStackInSlot(i) != null && getStackInSlot(i).stackSize == 0) {
@@ -162,11 +149,11 @@ public class SeedInventory implements IInventory {
     }
 
     @Override
-    public void openChest() {
+    public void openInventory() {
     }
 
     @Override
-    public void closeChest() {
+    public void closeInventory() {
     }
 
     @Override
@@ -176,10 +163,10 @@ public class SeedInventory implements IInventory {
 
     public void loadFromNBT(NBTTagCompound tagCompound) {
         final int NBT_TAGLIST = 10;
-        NBTTagList tagList = tagCompound.func_150295_c("ItemsPlanterHelper", NBT_TAGLIST);
+        NBTTagList tagList = tagCompound.getTagList("ItemsPlanterHelper", NBT_TAGLIST);
 
         for(int i = 0; i < tagList.tagCount(); i++) {
-            NBTTagCompound itemTag = tagList.func_150305_b(i);
+            NBTTagCompound itemTag = tagList.getCompoundTagAt(i);
             int slot = itemTag.getInteger("SlotPlanterHelper");
 
             if(slot >= 0 && slot < getSizeInventory()) {

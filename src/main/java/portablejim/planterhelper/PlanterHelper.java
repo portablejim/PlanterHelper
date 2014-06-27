@@ -154,10 +154,10 @@ public class PlanterHelper {
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         HashMap<String, Integer> itemsList = new HashMap<String, Integer>();
-        GameData.itemRegistry.serializeInto(itemsList);
+        GameData.getItemRegistry().serializeInto(itemsList);
         for(String itemName : itemsList.keySet()) {
             String itemProperName = itemName.startsWith("\u0002") ? itemName.substring(1) : itemName;
-            Item item = GameData.itemRegistry.get(itemProperName);
+            Item item = GameData.getItemRegistry().getObject(itemProperName);
             if(item != null && item instanceof ItemHoe) {
                 OreDictionary.registerOre("hoe", new ItemStack(item, 1, OreDictionary.WILDCARD_VALUE));
             }

@@ -95,7 +95,7 @@ public class VeinPlanterInstance {
                     }
 
                     if(player.getFoodStats().getFoodLevel() < 2) {
-                        player.func_146105_b(new ChatComponentTranslation("PlanterHelper:TooHungry"));
+                        player.addChatComponentMessage(new ChatComponentTranslation("PlanterHelper:TooHungry"));
                         finished = true;
                         return;
                     }
@@ -121,7 +121,7 @@ public class VeinPlanterInstance {
         for(int i = 0; i < speed; i++) {
             if(!plantQueue.isEmpty() && !this.finished) {
                 if(player.getFoodStats().getFoodLevel() < 2) {
-                    player.func_146105_b(new ChatComponentTranslation("PlanterHelper:TooHungry"));
+                    player.addChatComponentMessage(new ChatComponentTranslation("PlanterHelper:TooHungry"));
                     finished = true;
                     return;
                 }

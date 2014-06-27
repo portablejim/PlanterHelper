@@ -60,25 +60,25 @@ public class PlantingLogic {
 
         IPlantable plantable = (IPlantable) currentItem.getItem();
 
-        Block targetBlock = world.func_147439_a(x, y, z);
+        Block targetBlock = world.getBlock(x, y, z);
         if(targetBlock == null || !targetBlock.canSustainPlant(world, x, y, z, direction, plantable)) {
             return false;
         }
 
-        if(!world.func_147437_c(x, y + 1, z)) {
+        if(!world.isAirBlock(x, y + 1, z)) {
             return false;
         }
 
         Block plantablePlant = plantable.getPlant(world, x, y + 1, z);
         int plantMeta = plantable.getPlantMetadata(world, x, y + 1, z);
 
-        world.func_147465_d(x, y + 1, z, plantablePlant, plantMeta, 3);
+        world.setBlock(x, y + 1, z, plantablePlant, plantMeta, 3);
 
         return true;
     }
 
     public static boolean targetedSuitableFarmland(World world, int x, int y, int z, ForgeDirection direction, IPlantable plantable) {
-        Block block = world.func_147439_a(x, y, z);
+        Block block = world.getBlock(x, y, z);
 
         return block != null && block.canSustainPlant(world, x, y, z, direction, plantable);
     }
