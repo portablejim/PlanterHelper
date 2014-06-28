@@ -1,3 +1,11 @@
+0.5.0 [1.7.10]
+-----
+
+* Initial release for 1.7.10
+
+Please note that this version may remove all the items from PlanterHelper from
+your world. Please ensure you backup your world.
+
 0.4.3 [1.7.2]
 -----
 
